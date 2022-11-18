@@ -14,7 +14,7 @@
 </head>
 
 <!--Navegación-->
-<body id="grilla-gral">
+<body id="grilla-contacto">
     <header id="header-navegacion">
         <!-- Menú de navegación -->
         <nav class="navbar navbar-expand-lg bg-light w-100">
@@ -24,7 +24,7 @@
                     <img src="../img/logo-inicio.png" alt="Logo" class="logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navegacion-web">
@@ -49,8 +49,77 @@
         </nav>
         
         <h1>TecniPC</h1>
-        
     </header>
+
+    <section>
+        <!-- Título -->
+        <h1 class="margenes">
+            Contactate con nosotros y te ayudaremos
+        </h1>
+
+        <!-- Formulario de contacto -->
+        <form>
+            <fieldset id="formulario">
+                <legend class="fuente">Formulario de contacto</legend>
+                <div>
+                    <label for="nombre">Nombre y apellido</label>
+                    <input type="text" id="Nombre" required>
+                </div>
+
+                <div>
+                    <label for="email">Correo Electronico</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div>
+                    <label for="telefono">Teléfono de contacto</label>
+                    <input type="text" id="telefono">
+                </div>
+
+            <div>
+                    <!-- una consulta un poco sin sentido -->
+                    <label for="select" >Estado civil</label>
+                    <select id="select" class="fuente-contacto-select">
+                        <option disabled>Selecciona una opción</option>
+                        <option value="">Soltero</option>
+                        <option value="">Casado</option>
+                        <option value="">Feliz</option>
+                    </select>
+            </div>
+
+                <div>
+                    <label for="mensaje">Comentanos tu incidencia</label>
+                    <textarea id="mensaje" cols="30" rows="10"></textarea>
+                </div>
+
+                <p class="fuente">
+                    Selecciona las referencias sobre tus incidentes
+                </p>
+
+                <label for="opcion 1" class="fuente">Mi pc no enciende</label>
+                <input type="radio" name="opciones" id="opcion 1">
+
+                <label for="opcion 2" class="fuente">Mi pc esta lenta</label>
+                <input type="radio" name="opciones" id="opcion 2">
+
+                <label for="opcion 3" class="fuente">No funciona internet</label>
+                <input type="radio" name="opciones" id="opcion 3">
+
+                <div>
+                <!-- Input de varias opciones -->
+                <label for="newsletter">Suscribirse recibir newsletter</label>
+                <input type="checkbox">
+                </div>
+
+                <div>
+                    <!--Botón para enviar los datos-->
+                    <input type="submit" value="Enviar mensaje" class="fuente-botones">
+                    <input type="reset" value="Comenzar de nuevo" class="fuente-botones">
+                </div>
+            </fieldset>
+        </form>
+    </section>
+
 
     <footer id="footer">
         Web creada por Adrián Fernández. Todos los derechos reservados.

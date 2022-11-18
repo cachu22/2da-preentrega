@@ -1,14 +1,22 @@
-/*Decoración__navegación*/
+/*Reset*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*Decoración-navegación*/
 a   {
     text-decoration: none;
     color: aquamarine;
 }
 
-/*Estilo__navegación*/
+/*Estilo-navegación*/
 ul  {
     list-style: none;
+    text-align: center;
 }
 
+/*Banner-navegación*/
 .navbar-expand-lg {
     background-image: url(../img/bannerbackground.jpg);
 }
@@ -29,13 +37,14 @@ body    {
 
 /*Fuente__H1*/
 h1  {
-    color: aquamarine;
+    margin-bottom: 3rem;
     font-size: 3pc;
     color: white; text-shadow: black 0.1rem 0.1rem 0.2rem
 }
 
 /*Fuente__H2*/
 h2  {
+    margin-top: 4rem;
     font-size: 35px;
     color: black; text-shadow: white 0.1rem 0rem 0.2rem
 }
@@ -45,9 +54,13 @@ h3{
     color: white; text-shadow: black 0.1rem 0.1rem 0.2rem
 }
 
+/*Margenes*/
+.margenes {
+    margin-bottom: 50px;
+}
+
 /*Header*/
 /*Navegación Gral*/
-
 #header-navegacion {
     grid-area: header;
     display: flex;
@@ -68,10 +81,12 @@ h3{
     flex-direction: column;
 }
 
+/*Navegacion-color-letras*/
 #navegacion-web li a {
     color:white;
 }
 
+/*navegación-animación*/
 #navegacion-web li:hover    {
     font-size: 30px;
     transition: font-size 0.2s;
@@ -85,13 +100,26 @@ h3{
 }
 
 /*Página Nuestros Servicios*/
-/*ID Servicios*/
+/*Fuente index*/
+.gray {
+    color: white; text-shadow: black 0.1rem 0.1rem 0.2rem;
+    font-size: 25px; 
+    text-align: center;
+}
+
+/*Fuente-Alineación*/
+.parrafo-index  {
+    text-align: center;
+}
+
+/*Página nuestros servicios*/
+/*caja-productos*/
 #servicios  {
     grid-area: productos;
     text-align: center;
 }
 
-/*Padre cards*/
+/*Padre-cards*/
 .padre-cards    {
     background-color: rgba(149, 162, 190, 0.829);
     display: flex;
@@ -103,39 +131,12 @@ h3{
     margin: auto;
 }
 
-/*Hijo cards*/
+/*Hijo-cards*/
 .card-servicios {
     border: solid 1px;
     height: 350px;
     width: 235px;
     justify-items: center;
-}
-
-/*Fuente-titulo-servicios*/
-.p-servicios    {
-    font-size: 30px;
-}
-
-/*Página Galeria*/
-#padre-imagenes {
-    grid-area: productos;
-    text-align: center;
-}
-
-#id-imagenes {
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(149, 162, 190, 0.829);
-    width: 12rem;
-    border: solid 1px;
-    justify-content: space-between;
-    row-gap: 20px;
-    padding: 1rem;
-    margin: auto;
-}
-
-.galeria__imagenes  {
-    border: solid 1px;
 }
 
 /*Banner productos y servicios*/
@@ -155,9 +156,9 @@ h3{
     font-size: 20px;
     text-align: center;
 }
-*/
 
-/*#padre__banner*/ {
+/*Padre-Banner*/
+#padre__banner {
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -171,6 +172,35 @@ h3{
     text-align: center;
 }
 
+/*Fuente-titulo-servicios*/
+.p-servicios    {
+    font-size: 30px;
+}
+
+/*Página Galeria*/
+/*padre-imagenes*/
+#padre-imagenes {
+    grid-area: productos;
+    text-align: center;
+}
+
+/*caja-imagenes*/
+#id-imagenes {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(149, 162, 190, 0.829);
+    width: 12rem;
+    border: solid 1px;
+    justify-content: space-between;
+    row-gap: 20px;
+    padding: 1rem;
+    margin: auto;
+}
+
+/*imagenes-bordes*/
+.galeria__imagenes  {
+    border: solid 1px;
+}
 
 /*Mobile First*/
 /*Grilla*/
@@ -187,6 +217,26 @@ h3{
     margin: auto;
 }
 
+/*Grilla Pagina-Index*/
+#grilla-index   {
+    text-align: center;
+}
+
+/*Grilla-Pagina-Quienes-somos*/
+#grilla-quienes-somos   {
+    text-align: center;
+}
+
+/*Pagina-Contacto*/
+#grilla-contacto    {
+    text-align: center;
+}
+
+#formulario {
+    background-color: white
+}
+
+/*Media Querie 320px*/
 @media screen and (min-width: 320px) {
     #grilla-gral {
         grid-template-areas: 
@@ -198,6 +248,7 @@ h3{
     }
 }
 
+/*Media Querie 768px*/
 @media screen and (min-width: 768px) {
     #grilla-gral {
         grid-template-rows: 200px 1fr 1fr 50px;
@@ -207,25 +258,25 @@ h3{
         "banner banner banner"
         "footer footer footer";
         grid-template-columns: repeat(3, 1fr);
-}
+    }  
 
-
-
-/*CARDS*/
-.padre-cards    {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    width: 32rem;
-    justify-content: space-between;
-    column-gap: 20px;
-}
+    /*Pagina-Servicios*/
+    /*CARDS*/
+    .padre-cards    {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 32rem;
+        justify-content: space-between;
+        column-gap: 20px;
+    }
 
     /*Página Galeria*/
     #padre-imagenes {
         grid-area: productos;
         text-align: center;
-}
+    }
 
+    /*Caja-Imagenes*/
     #id-imagenes {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -235,43 +286,49 @@ h3{
         column-gap: 20px;
     }
 
+    /*Animacion-Imagenes*/
     .galeria__imagenes:hover    {
         transform: scale(2);
         transition: transform .5s;
     }
 
-#img    {
+    /*Imagenes-Tamaño*/
+    #img    {
     width: 300px;
     }
 
-/*Seccion Banner*/
-#banner__productosyservicios {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 14rem;
-    width: 45rem;
-    margin-top: 3rem;
+    /*Pagina Servicios*/
+    /*Seccion Banner*/
+    #banner__productosyservicios {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 14rem;
+        width: 45rem;
+        margin-top: 3rem;
+    }
+
+    #padre__banner  {
+        display: flex;
+        flex-direction: row;
+    }
 }
 
-#padre__banner  {
-    display: flex;
-    flex-direction: row;
-}
-}
-
+/*Media Querie 900px*/
 @media screen and (min-width: 900px) {
+    /*Grilla Gral*/
     #grilla-gral {
         grid-template-columns: repeat(3, 1fr);
     }
 
+    /*Grilla-Navegacion*/
     #navegacion-web {
         flex-direction: row;
         gap: 3rem;
     }
 
-
-/*CARDS*/
+    /*Pagina Servicios*/
+    /*CARDS*/
     .padre-cards    {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -280,6 +337,7 @@ h3{
         column-gap: 20px;
     }
 
+    /*Pagina Galeria*/
     #id-imagenes {
         grid-template-columns: repeat(3, 1fr);
         width: 45rem;
