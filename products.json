@@ -1,56 +1,37 @@
 [
   {
-    "id": 1,
+    "id": 3,
+    "status": true,
+    "thumbnails": [],
     "title": "Producto 1",
     "description": "Descripción del Producto 1",
-    "price": 120,
+    "price": 100,
     "thumbnail": "imagen1.jpg",
-    "code": "ABC123",
-    "stock": 15
-  },
-  {
-    "id": 3,
-    "title": "Producto 2",
-    "description": "Descripción del Producto 2",
-    "price": 150,
-    "thumbnail": "imagen2.jpg",
-    "code": "DEF456",
-    "stock": 20
+    "code": "aABC12a3",
+    "stock": 10,
+    "category": "ropas"
   },
   {
     "id": 4,
-    "title": "Producto 1",
-    "description": "Descripción del Producto 1",
-    "price": 100,
-    "thumbnail": "imagen1.jpg",
-    "code": "ABC123",
-    "stock": 10
+    "status": true,
+    "thumbnails": [],
+    "title": "Producto 2",
+    "description": "Descripción del Producto 2",
+    "price": 150,
+    "thumbnail": "imagen2.jpg",
+    "code": "DEF45s6s",
+    "stock": 20,
+    "category": "ropas"
   },
   {
     "id": 5,
-    "title": "Producto 2",
-    "description": "Descripción del Producto 2",
-    "price": 150,
-    "thumbnail": "imagen2.jpg",
-    "code": "DEF456",
-    "stock": 20
-  },
-  {
-    "id": 6,
-    "title": "Producto 1",
-    "description": "Descripción del Producto 1",
-    "price": 100,
-    "thumbnail": "imagen1.jpg",
-    "code": "ABC123",
-    "stock": 10
-  },
-  {
-    "id": 7,
-    "title": "Producto 2",
-    "description": "Descripción del Producto 2",
-    "price": 150,
-    "thumbnail": "imagen2.jpg",
-    "code": "DEF456",
-    "stock": 20
+    "status": true,
+    "thumbnails": [],
+    "title": "data",
+    "description": "datos",
+    "code": "aaashsaas",
+    "price": 12045,
+    "stock": 15,
+    "category": "ropas"
   }
 ]
