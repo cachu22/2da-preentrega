@@ -56,21 +56,6 @@ router.put('/:pid', (req, res) => {
     }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Ruta para eliminar un producto por su ID
 router.delete('/:pid', (req, res) => {
     const { pid } = req.params; // Obtiene el parámetro de ruta 'pid' que representa el ID del producto
@@ -81,7 +66,6 @@ router.delete('/:pid', (req, res) => {
         res.status(404).json({ error: 'Producto no encontrado' }); // Envía un mensaje de error si el producto no se puede eliminar
     }
 });
-
 });
 
 module.exports = router;

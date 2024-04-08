@@ -15,3 +15,6 @@ index
 
 #ignora archivos en carpeta ignores
 ignores
+
+# carpeta Upload
+src/Upload

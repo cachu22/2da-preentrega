@@ -27,9 +27,16 @@ app.use('/api/products/new', productsRouter);
 app.use('api/:pid',productsRouter)
 
 //                                      CARTS
+
+//Crear un carrito desde la ruta 'POST /'
+app.use('/', cartsRouter)
+
 // Define un manejador que usa el enrutador para la ruta '/api/carts'
-// Traer unproducto por ID
+// Traer un carrito por ID
 app.use('/api/carts', cartsRouter);
+
+//Agregar nuevo producto al carrito
+app.use('/api/carts/', cartsRouter);
 
 // Inicia el servidor y lo hace escuchar en el puerto 8080
 app.listen(8080, () => {

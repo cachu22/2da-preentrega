@@ -107,36 +107,5 @@ updateProduct(productId, updatedFields) {
 // Creación de una instancia de ProductManager con la ruta del archivo de productos
 const manager = new ProductManager('products.json');
 
-// Agregar productos (ejemplo)
-try {
-  manager.addProduct({
-    title: "Producto 1",
-    description: "Descripción del Producto 1",
-    price: 100,
-    thumbnail: "imagen1.jpg",
-    code: "aABC12a3",
-    stock: 10,
-    category: "ropas"
-  });
-  manager.addProduct({
-    title: "Producto 2",
-    description: "Descripción del Producto 2",
-    price: 150,
-    thumbnail: "imagen2.jpg",
-    code: "DEF45s6s",
-    stock: 20,
-    category: "ropas"
-  });
-} catch (error) {
-  console.error("Error al agregar producto:", error.message);
-}
-
-// Actualizar un producto (ejemplo)
-try {
-  manager.updateProduct(1, { price: 120, stock: 15 });
-} catch (error) {
-  console.error("Error al actualizar producto:", error.message);
-}
-
 // Exporta la clase ProductManager para su uso en otros archivos
 module.exports = ProductManager;
