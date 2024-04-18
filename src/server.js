@@ -45,3 +45,16 @@ app.get('/realtimeProducts', (req, res) => {
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 
+socketServer.on('connection', socket =>{
+    console.log("nuevo cliente conectado");
+
+    socket.on('message',data => {
+        console.log(data);
+    })
+
+    socket.emit('socket_individual', 'Este mensaje lo deben recibir los socket')
+
+    socket.broadcast.emit('para_todos_menos_el_actual', 'este evento lo veran todos los sockets menos el actual')
+
+    socketServer.emit ('evento_para_todos', 'este mensaje lo reciben todos los sockets incluido el actual')
+});

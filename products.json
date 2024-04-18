@@ -46,5 +46,29 @@
     "code": "a4",
     "stock": 14454,
     "category": "ropas"
+  },
+  {
+    "id": 5,
+    "status": true,
+    "thumbnails": [],
+    "title": "Producto 1",
+    "description": "Descripción del Producto 1",
+    "price": 100,
+    "thumbnail": "imagen1.jpg",
+    "code": "ua1",
+    "stock": 104444,
+    "category": "ropas"
+  },
+  {
+    "id": 6,
+    "status": true,
+    "thumbnails": [],
+    "title": "Producto 5",
+    "description": "Descripción del Producto 5",
+    "price": 100,
+    "thumbnail": "imagen1.jpg",
+    "code": "uaa1",
+    "stock": 104444,
+    "category": "ropas"
   }
 ]
