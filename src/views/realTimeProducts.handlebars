@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TecniPC | Productos y servicios</title>
+</head>
+
+<!--Navegación-->
+<body>
+    <header id="header-navegacion">
+        
+        <h1>TecniPC</h1>
+        
+    </header>
+
+    <main id="servicios">
+        <!--Sección Cards-->
+        <!--Sección Cards productos y servicios-->
+        <section>
+            <h2>Productos y servicios</h2>
+            <h3 class="p-servicios">Ofrecemos trabajos y productos de la más alta calidad</h3>
+
+            <!--padre cards-->
+            <div class="padre-cards">
+                    <!--Card 1-->
+                    {{#each products}}
+                        <div class="card-servicios">
+                            <p>{{this.title}}</p>
+                            <p>{{this.price}}</p>
+                            <p>{{this.description}}</p>
+                            <p>{{this.stock}}</p>
+                            <button>Agregar al carrito</button>
+                        {{/each}}
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        Web creada por Adrián Fernández. Todos los derechos reservados.
+    </footer>
+
+    </body>
+
+    </html>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/src/Public/js/productosreal.js"></script>

@@ -9,7 +9,40 @@
       {
         "id de producto": "5",
         "quantity": 1
+      },
+      {
+        "id de producto": "3",
+        "quantity": 1
       }
     ]
+  },
+  {
+    "id de carrito": 4,
+    "products": [
+      {
+        "id de producto": "1",
+        "quantity": 1
+      },
+      {
+        "id de producto": "2",
+        "quantity": 4
+      }
+    ]
+  },
+  {
+    "id de carrito": 5,
+    "products": []
+  },
+  {
+    "id de carrito": 6,
+    "products": []
+  },
+  {
+    "id de carrito": 7,
+    "products": []
+  },
+  {
+    "id de carrito": 8,
+    "products": []
   }
 ]

@@ -4,17 +4,20 @@
   "description": "mi primer server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index-copy.js"
+    "dev": "nodemon --exec node src/server.js"
   },
   "keywords": [],
   "author": "Adrian",
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2",
-    "multer": "^1.4.5-lts.1"
+    "express-handlebars": "^5.3.5",
+    "handlebars": "^4.7.7",
+    "multer": "^1.4.5-lts.1",
+    "socket.io": "^4.7.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
-  }
+  },
+  "type": "module" 
 }

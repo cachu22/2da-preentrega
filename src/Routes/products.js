@@ -1,6 +1,5 @@
-const ProductManager = require('../../2doDesafio');
-
-const express = require('express');
+import express from 'express';
+import ProductManager from '../../2doDesafio.js';
 const router = express.Router();
 
 // Crea una instancia de ProductManager con el archivo 'products.json'
@@ -31,6 +30,7 @@ router.get('/:pid', (req, res) => {
     } else {
         res.status(404).json({ error: 'Producto no encontrado' }); // Envía un mensaje de error si el producto no se encuentra
     }
+});
 
 // Ruta para agregar un nuevo producto con campos (POST /)
 router.post('/', (req, res) => {
@@ -66,6 +66,5 @@ router.delete('/:pid', (req, res) => {
         res.status(404).json({ error: 'Producto no encontrado' }); // Envía un mensaje de error si el producto no se puede eliminar
     }
 });
-});
 
-module.exports = router;
+export default router;

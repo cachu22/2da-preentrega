@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs'; // Importa fs como un módulo ES
 
 // Clase ProductManager
 class ProductManager {
@@ -108,4 +108,4 @@ updateProduct(productId, updatedFields) {
 const manager = new ProductManager('products.json');
 
 // Exporta la clase ProductManager para su uso en otros archivos
-module.exports = ProductManager;
+export default ProductManager;
