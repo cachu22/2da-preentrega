@@ -82,5 +82,29 @@
     "code": "pad2",
     "stock": 13,
     "category": "perifericos"
+  },
+  {
+    "id": 8,
+    "status": true,
+    "thumbnails": "https://picsum.photos/700/407?random",
+    "title": "cable power",
+    "description": "en corto",
+    "price": 15,
+    "thumbnail": "imagen1.jpg",
+    "code": "cable",
+    "stock": 3,
+    "category": "perifericos"
+  },
+  {
+    "id": 9,
+    "status": true,
+    "thumbnails": "https://picsum.photos/700/409?random",
+    "title": "dock",
+    "description": "es para discos",
+    "price": 150,
+    "thumbnail": "imagen1.jpg",
+    "code": "dock",
+    "stock": 3,
+    "category": "perifericos"
   }
 ]

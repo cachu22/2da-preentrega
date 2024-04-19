@@ -1,17 +1,16 @@
 // Importa el módulo express
 import express, { Router } from 'express'
 import exphbs from 'express-handlebars';
-import productsRouter from './Routes/products.js';
-import { router as cartsRouter } from './Routes/carts.js';
-import Handlebars from 'express-handlebars';
+import productsRouter from './Routes/products.router.js';
+import { router as cartsRouter } from './Routes/carts.router.js';
 import { Server } from 'socket.io';
-const productsData = JSON.parse(fs.readFileSync('./products.json', 'utf-8'));
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const productsData = JSON.parse(fs.readFileSync(__dirname + '/file/products.json', 'utf-8'));
 
 // Crea una aplicación express
 const app = express();
@@ -38,8 +37,8 @@ app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 app.set('views', __dirname + '/views');
 
-app.get('/realtimeProducts', (req, res) => {
-    res.render('realTimeProducts', { products: productsData });
+app.get('/home', (req, res) => {
+    res.render('home', { products: productsData });
 });
 
 app.use('/api/products', productsRouter);
@@ -48,13 +47,24 @@ app.use('/api/carts', cartsRouter);
 socketServer.on('connection', socket =>{
     console.log("nuevo cliente conectado");
 
-    socket.on('message',data => {
+    // socket.on('message',data => {
+    //     console.log(data);
+    // })
+
+    // socket.emit('socket_individual', 'Este mensaje lo deben recibir los socket')
+
+    // socket.broadcast.emit('para_todos_menos_el_actual', 'este evento lo veran todos los sockets menos el actual')
+
+    // socketServer.emit ('evento_para_todos', 'este mensaje lo reciben todos los sockets incluido el actual')
+    const messages = []
+
+    //enviar mensajes viejos
+    socket.on('mensaje_cliente', data =>{
         console.log(data);
+
+        messages.push({id: socket.id, message: data})
+
+        socketServer.emit('message_server', messages)
     })
-
-    socket.emit('socket_individual', 'Este mensaje lo deben recibir los socket')
-
-    socket.broadcast.emit('para_todos_menos_el_actual', 'este evento lo veran todos los sockets menos el actual')
-
-    socketServer.emit ('evento_para_todos', 'este mensaje lo reciben todos los sockets incluido el actual')
 });
+

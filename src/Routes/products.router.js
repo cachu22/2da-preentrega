@@ -1,9 +1,14 @@
 import express from 'express';
-import ProductManager from '../../2doDesafio.js';
+import ProductManager from '../managers/product.Manager.js';
 const router = express.Router();
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 // Crea una instancia de ProductManager con el archivo 'products.json'
-const manager = new ProductManager('products.json');
+const manager = new ProductManager('./src/file/products.json');
 
 // Ruta para listar todos los productos (GET /)
 router.get('/', (req, res) => {

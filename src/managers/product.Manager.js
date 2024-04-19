@@ -105,7 +105,7 @@ updateProduct(productId, updatedFields) {
 }
 
 // Creación de una instancia de ProductManager con la ruta del archivo de productos
-const manager = new ProductManager('products.json');
+// const manager = new ProductManager('products.json');
 
 // Exporta la clase ProductManager para su uso en otros archivos
 export default ProductManager;

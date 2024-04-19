@@ -216,6 +216,16 @@ section div img {
   border: solid 1px;
   justify-items: center; }
 
+  /*Apartado chat*/
+.chat {
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+}
+
+.letras-chat {
+  color: white;
+}
+
 /*Banner-productos-y-servicios*/
 #banner__productosyservicios {
   width: 200px;
