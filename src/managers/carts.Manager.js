@@ -1,5 +1,4 @@
 import fs from 'fs'
-let carts = [];
 class CartManager {
     constructor(path) {
         this.path = path
@@ -84,24 +83,11 @@ class CartManager {
 
     // Método para agregar un producto al carrito
     addProductToCart = async (cid, pid) => {
-            // Método para leer productos desde products.json
-    function getProductsFromFile() {
-        const data = fs.readFileSync('./src/file/products.json', 'utf8');
-        return JSON.parse(data);
-}
         try {
-            // Obtener los productos del archivo products.json
-            const products = getProductsFromFile();
+            // Obtener los carritos desde el archivo
+            let carts = this.getCartsFromFile();
 
-            // Buscar el producto por su ID
-            const productToAdd = products.find(product => product.id === parseInt(pid));
-            
-            // Verificar si el producto existe
-            if (!productToAdd) {
-                throw new Error('Producto no encontrado');
-            }
-
-            // Verificar si el carrito existe y obtenerlo
+            // Buscar el carrito por su ID
             let cartIndex = carts.findIndex(cart => cart["id de carrito"] === parseInt(cid));
 
             // Si no se encontró el carrito, crear uno nuevo
@@ -112,7 +98,7 @@ class CartManager {
                 };
                 carts.push(newCart); // Agregar el nuevo carrito a la lista de carritos
             } else {
-                // Si el carrito ya existe, agregar el producto al carrito existente
+                // Si el carrito ya existe, buscar el producto por su ID
                 const existingProductIndex = carts[cartIndex].products.findIndex(item => item["id de producto"] === pid);
                 if (existingProductIndex !== -1) {
                     // Si el producto ya está en el carrito, incrementar la cantidad
@@ -125,7 +111,7 @@ class CartManager {
 
             // Guardar los cambios en el archivo después de modificar el carrito
             this.saveCartsToFile(carts);
-        
+
             return { message: 'Producto agregado al carrito correctamente', carts };
         } catch (error) {
             console.log(error);

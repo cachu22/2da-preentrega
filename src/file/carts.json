@@ -1,11 +1,72 @@
 [
   {
+    "id de carrito": 3,
+    "products": [
+      {
+        "id de producto": "3",
+        "quantity": 26
+      },
+      {
+        "id de producto": "1",
+        "quantity": 4
+      },
+      {
+        "id de producto": "2",
+        "quantity": 3
+      }
+    ]
+  },
+  {
     "id de carrito": 2,
     "products": [
       {
+        "id de producto": "3",
+        "quantity": 4
+      },
+      {
+        "id de producto": "1",
+        "quantity": 3
+      },
+      {
         "id de producto": "2",
-        "quantity": 1
+        "quantity": 2
       }
     ]
+  },
+  {
+    "id de carrito": 4,
+    "products": []
+  },
+  {
+    "id de carrito": 5,
+    "products": []
+  },
+  {
+    "id de carrito": 6,
+    "products": []
+  },
+  {
+    "id de carrito": 7,
+    "products": []
+  },
+  {
+    "id de carrito": 8,
+    "products": []
+  },
+  {
+    "id de carrito": 9,
+    "products": []
+  },
+  {
+    "id de carrito": 10,
+    "products": []
+  },
+  {
+    "id de carrito": 11,
+    "products": []
+  },
+  {
+    "id de carrito": 12,
+    "products": []
   }
 ]
