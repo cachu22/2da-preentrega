@@ -2,7 +2,7 @@
 import express, { Router } from 'express'
 import exphbs from 'express-handlebars';
 import productsRouter from './Routes/products.router.js';
-import {router as view} from './Routes/view.js'
+import {router as view} from './Routes/realTimeProducts.router.js'
 import { router as cartsRouter } from './Routes/carts.router.js';
 import { Server } from 'socket.io';
 import fs from 'fs';
