@@ -1,9 +1,10 @@
 // Importa el módulo express
-import express, { Router } from 'express'
+import express from 'express';
 import exphbs from 'express-handlebars';
 import productsRouter from './Routes/products.router.js';
-import {router as view} from './Routes/realTimeProducts.router.js'
+import { router as view } from './Routes/realTimeProducts.router.js';
 import { router as cartsRouter } from './Routes/carts.router.js';
+import { createServer } from 'http';
 import { Server } from 'socket.io';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -17,88 +18,112 @@ const productsData = JSON.parse(fs.readFileSync(__dirname + '/file/products.json
 // Cargar los datos de los carritos desde el archivo carts.json
 const cartData = JSON.parse(fs.readFileSync(__dirname + '/file/carts.json', 'utf-8'));
 
+// Establece la ruta completa al archivo JSON que contiene los datos de los productos
+const productsFilePath = __dirname + '/file/products.json';
+
 // Crea una aplicación express
 const app = express();
-//Guardar en una constante el listen
-const httpServer = // Inicia el servidor y lo hace escuchar en el puerto 8080
-app.listen(8080, () => {
-    console.log('Escuchando en el puerto 8080'); // Imprime un mensaje en la consola cuando el servidor se inicia correctamente
+const server = createServer(app);
+
+// Crear servidor HTTP utilizando la aplicación express
+const httpServer = createServer(app);
+
+// Crear instancia de Socket.IO pasando el servidor HTTP
+const io = new Server(httpServer);
+
+// Iniciar el servidor HTTP
+httpServer.listen(8080, () => {
+    console.log('Servidor escuchando en el puerto 8080');
 });
 
-//Servir archivos estaticos
+// Servir archivos estáticos
 app.use(express.static(__dirname + '/Public'));
-
-//Creacion de socket server
-const io = new Server (httpServer);
 
 // Middleware para analizar el cuerpo de la solicitud JSON
 app.use(express.json());
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }));
 
-//Express usará este motor de plantillas
+// Express usará este motor de plantillas
 const handlebars = exphbs.create();
 app.engine('handlebars', handlebars.engine);
 
-//setear las direcciones de las vistas
+// Establecer las direcciones de las vistas
 app.set('view engine', 'handlebars');
-
 app.set('views', __dirname + '/views');
 
-//Middleware
-app.use(productsSocket(io))
+// Middleware de Socket.IO
+app.use(productsSocket(io));
 
+// Rutas
 app.get('/home', (req, res) => {
     res.render('home', { products: productsData });
 });
 
-                                // Ruta para mostrar la información en tiempo real de los carritos
-                                app.get('/realtimeproducts', (req, res) => {
-                                    // Filtrar el carrito que deseas mostrar
-                                    const cartToShow = cartData.find(cart => cart['id de carrito'] === 3); // Cambia '3' por el ID del carrito que deseas mostrar
+app.get('/realtimeproducts', (req, res) => {
+    res.render('realTimeProducts', { products: productsData });
+});
 
-                                    if (!cartToShow) {
-                                        // Si no se encuentra el carrito, puedes manejarlo como desees, por ejemplo, mostrando un mensaje de error
-                                        res.status(404).send('El carrito no fue encontrado');
-                                        return;
-                                    }
+app.get('/cart', (req, res) => {
+    const cartToShow = cartData.find(cart => cart['id de carrito'] === 3);
 
-                                    const cartInfo = {
-                                        id: cartToShow['id de carrito'],
-                                        products: cartToShow.products.map(product => ({
-                                            id: product['id de producto'],
-                                            quantity: product.quantity,
-                                            thumbnails: product.thumbnails // Agregar la imagen al objeto del producto
-                                        }))
-                                    };
+    if (!cartToShow) {
+        res.status(404).send('El carrito no fue encontrado');
+        return;
+    }
 
-                                    // Renderizar la plantilla con la información del carrito seleccionado
-                                    res.render('realTimeProducts', { cart: cartInfo });
-                                });
+    const cartInfo = {
+        id: cartToShow['id de carrito'],
+        products: cartToShow.products.map(product => ({
+            id: product['id de producto'],
+            quantity: product.quantity,
+            thumbnails: product.thumbnails
+        }))
+    };
 
+    res.render('realTimeProducts', { cart: cartInfo });
+});
+
+// Rutas API
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 
-io.on('connection', socket =>{
-    console.log("nuevo cliente conectado");
+let products = productsData;
 
-    // socket.on('message',data => {
-    //     console.log(data);
-    // })
+// Manejo de conexiones de Socket.IO
+io.on('connection', socket => {
+    console.log("Nuevo cliente conectado");
 
-    // socket.emit('socket_individual', 'Este mensaje lo deben recibir los socket')
+// Escuchar el evento 'addProduct' para agregar un nuevo producto
+socket.on('addProduct', (productData) => {
+    try {
+        // Verificar si los datos del producto están presentes
+        if (!productData || typeof productData !== 'object') {
+            throw new Error('Datos del producto no válidos');
+        }
 
-    // socket.broadcast.emit('para_todos_menos_el_actual', 'este evento lo veran todos los sockets menos el actual')
+        // Agregar el nuevo producto al array de productos
+        const newProduct = {
+            title: productData.title,
+            description: productData.description,
+            price: productData.price,
+            thumbnails: productData.thumbnails,
+            stock: productData.stock
+        };
 
-    // socketServer.emit ('evento_para_todos', 'este mensaje lo reciben todos los sockets incluido el actual')
-    let messages = []
+        // Registrar los datos del producto agregado en la consola
+        console.log('Nuevo producto agregado:', newProduct);
 
-    //enviar mensajes viejos
-    socket.on('mensaje_cliente', data =>{
-        console.log(data);
+        products.push(newProduct);
 
-        messages.push({id: socket.id, message: data})
+        // Guardar los productos actualizados en el archivo products.json
+        fs.writeFileSync(productsFilePath, JSON.stringify(products, null, 2));
+        
+        // Emitir un evento 'productAdded' con los datos del nuevo producto
+        io.emit('productAdded', newProduct);
 
-        io.emit('message_server', messages)
-    })
+    } catch (error) {
+        console.error('Error al agregar el producto:', error);
+    }
 });
 
+});

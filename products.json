@@ -84,38 +84,10 @@
     "category": "acompañamiento"
   },
   {
-    "title": "test",
-    "description": "12",
+    "title": "asdas",
+    "description": "asdasd",
     "price": "12",
     "thumbnails": "https://picsum.photos/700/409?random",
     "stock": "12"
-  },
-  {
-    "title": "test",
-    "description": "test",
-    "price": "12",
-    "thumbnails": "https://picsum.photos/700/409?random",
-    "stock": "12"
-  },
-  {
-    "title": "werwre",
-    "description": "12q",
-    "price": "122",
-    "thumbnails": "https://picsum.photos/700/409?random",
-    "stock": "4"
-  },
-  {
-    "title": "rewsta",
-    "description": "qwrasf",
-    "price": "333",
-    "thumbnails": "https://picsum.photos/700/409?random",
-    "stock": "12"
-  },
-  {
-    "title": "test",
-    "description": "test",
-    "price": "12",
-    "thumbnails": "https://picsum.photos/700/415?random",
-    "stock": "2"
   }
 ]
