@@ -36,10 +36,12 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 
 //Express usará este motor de plantillas
-app.engine('handlebars', exphbs());
+const handlebars = exphbs.create();
+app.engine('handlebars', handlebars.engine);
 
 //setear las direcciones de las vistas
 app.set('view engine', 'handlebars');
+
 app.set('views', __dirname + '/views');
 
 //Middleware

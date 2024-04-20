@@ -4,7 +4,7 @@
     "products": [
       {
         "id de producto": "6",
-        "quantity": 1,
+        "quantity": 4,
         "thumbnails": "https://picsum.photos/700/406?random",
         "price": 100
       }
@@ -41,6 +41,12 @@
         "quantity": 2,
         "thumbnails": "https://picsum.photos/700/404?random",
         "price": 40
+      },
+      {
+        "id de producto": "6",
+        "quantity": 4,
+        "thumbnails": "https://picsum.photos/700/406?random",
+        "price": 100
       }
     ]
   }
