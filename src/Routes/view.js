@@ -1,5 +1,7 @@
-// module.exports = function(req, res, next) {
-//     console.log('Middleware de realtimeProducts ejecutado');
-//     // Llama a 'next()' para pasar el control al siguiente middleware
-//     next();
-// };
+import { Router } from "express"
+    export const router = Router()
+    
+    //realTimeProducts para ver los productos en tiempo real
+    router.get('/realtimeproducts', (req, res) => {
+        res.render('realTimeProducts', {})
+    })

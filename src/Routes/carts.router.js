@@ -82,4 +82,5 @@ let carts = [];
         } catch (error) {
             res.status(500).json({ error: 'Error al agregar el producto al carrito' });
     }
+
 });

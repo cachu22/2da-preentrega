@@ -2,15 +2,18 @@
 import express, { Router } from 'express'
 import exphbs from 'express-handlebars';
 import productsRouter from './Routes/products.router.js';
+import {router as view} from './Routes/view.js'
 import { router as cartsRouter } from './Routes/carts.router.js';
 import { Server } from 'socket.io';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { productsSocket } from './utils/productsSocket.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const productsData = JSON.parse(fs.readFileSync(__dirname + '/file/products.json', 'utf-8'));
+const cartData = JSON.parse(fs.readFileSync(__dirname + '/file/carts.json', 'utf-8'));
 
 // Crea una aplicación express
 const app = express();
@@ -24,7 +27,7 @@ app.listen(8080, () => {
 app.use(express.static(__dirname + '/Public'));
 
 //Creacion de socket server
-const socketServer = new Server (httpServer);
+const io = new Server (httpServer);
 
 // Middleware para analizar el cuerpo de la solicitud JSON
 app.use(express.json());
@@ -37,14 +40,22 @@ app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 app.set('views', __dirname + '/views');
 
+//Middleware
+app.use(productsSocket(io))
+
 app.get('/home', (req, res) => {
     res.render('home', { products: productsData });
 });
 
+app.get('/realtimeproducts', (req, res) => {
+    res.render('realTimeProducts', {carts: cartData})
+}
+);
+
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 
-socketServer.on('connection', socket =>{
+io.on('connection', socket =>{
     console.log("nuevo cliente conectado");
 
     // socket.on('message',data => {
@@ -64,7 +75,7 @@ socketServer.on('connection', socket =>{
 
         messages.push({id: socket.id, message: data})
 
-        socketServer.emit('message_server', messages)
+        io.emit('message_server', messages)
     })
 });
 

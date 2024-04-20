@@ -4,7 +4,7 @@
     "products": [
       {
         "id de producto": "3",
-        "quantity": 26
+        "quantity": 29
       },
       {
         "id de producto": "1",
@@ -67,6 +67,10 @@
   },
   {
     "id de carrito": 12,
+    "products": []
+  },
+  {
+    "id de carrito": 13,
     "products": []
   }
 ]
