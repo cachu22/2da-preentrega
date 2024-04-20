@@ -63,6 +63,7 @@ let carts = [];
             return {
                 "id de producto": product["id de producto"],
                 "quantity": product.quantity
+                
             };
         })
     };

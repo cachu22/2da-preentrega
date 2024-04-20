@@ -1,0 +1,71 @@
+// Importa el módulo 'fs' para trabajar con archivos
+const fs = require('fs');
+
+// Define la clase CartManager
+class CartManager {
+    // Método para obtener los productos desde el archivo
+    getProductsFromFile = () => {
+        try {
+            const productsData = fs.readFileSync('./file/products.json', 'utf-8');
+            return JSON.parse(productsData);
+        } catch (error) {
+            console.error('Error al leer el archivo de productos:', error);
+            return [];
+        }
+    }
+
+    // Método para agregar un producto al carrito
+    addProductToCart = async (cid, pid) => {
+        try {
+            // Obtener los carritos desde el archivo
+            let carts = this.getCartsFromFile();
+
+            // Obtener los productos desde el archivo
+            let products = this.getProductsFromFile();
+
+            // Buscar el carrito por su ID
+            let cartIndex = carts.findIndex(cart => cart["id de carrito"] === parseInt(cid));
+
+            // Si no se encontró el carrito, crear uno nuevo
+            if (cartIndex === -1) {
+                const newCart = {
+                    "id de carrito": parseInt(cid),
+                    products: [{ "id de producto": pid, quantity: 1 }]
+                };
+                carts.push(newCart); // Agregar el nuevo carrito a la lista de carritos
+            } else {
+                // Si el carrito ya existe, buscar el producto por su ID
+                const existingProductIndex = carts[cartIndex].products.findIndex(item => item["id de producto"] === pid);
+                if (existingProductIndex !== -1) {
+                    // Si el producto ya está en el carrito, incrementar la cantidad
+                    carts[cartIndex].products[existingProductIndex].quantity++;
+                } else {
+                    // Si el producto no está en el carrito, agregarlo con cantidad 1
+                    const productToAdd = products.find(product => product["id de producto"] === pid);
+                    if (productToAdd) {
+                        // Si se encontró el producto, agregarlo al carrito con su información
+                        carts[cartIndex].products.push({
+                            "id de producto": pid,
+                            quantity: 1,
+                            thumbnails: productToAdd.thumbnails,
+                            price: productToAdd.price
+                        });
+                    }
+                }
+            }
+
+            // Guardar los cambios en el archivo después de modificar el carrito
+            this.saveCartsToFile(carts);
+
+            return { message: 'Producto agregado al carrito correctamente', carts };
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    // Otros métodos de la clase...
+}
+
+// Exporta la clase CartManager
+module.exports = CartManager;

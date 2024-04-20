@@ -13,6 +13,8 @@ import { productsSocket } from './utils/productsSocket.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const productsData = JSON.parse(fs.readFileSync(__dirname + '/file/products.json', 'utf-8'));
+
+// Cargar los datos de los carritos desde el archivo carts.json
 const cartData = JSON.parse(fs.readFileSync(__dirname + '/file/carts.json', 'utf-8'));
 
 // Crea una aplicación express
@@ -47,10 +49,29 @@ app.get('/home', (req, res) => {
     res.render('home', { products: productsData });
 });
 
-app.get('/realtimeproducts', (req, res) => {
-    res.render('realTimeProducts', {carts: cartData})
-}
-);
+                                // Ruta para mostrar la información en tiempo real de los carritos
+                                app.get('/realtimeproducts', (req, res) => {
+                                    // Filtrar el carrito que deseas mostrar
+                                    const cartToShow = cartData.find(cart => cart['id de carrito'] === 3); // Cambia '3' por el ID del carrito que deseas mostrar
+
+                                    if (!cartToShow) {
+                                        // Si no se encuentra el carrito, puedes manejarlo como desees, por ejemplo, mostrando un mensaje de error
+                                        res.status(404).send('El carrito no fue encontrado');
+                                        return;
+                                    }
+
+                                    const cartInfo = {
+                                        id: cartToShow['id de carrito'],
+                                        products: cartToShow.products.map(product => ({
+                                            id: product['id de producto'],
+                                            quantity: product.quantity,
+                                            thumbnails: product.thumbnails // Agregar la imagen al objeto del producto
+                                        }))
+                                    };
+
+                                    // Renderizar la plantilla con la información del carrito seleccionado
+                                    res.render('realTimeProducts', { cart: cartInfo });
+                                });
 
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
@@ -67,7 +88,7 @@ io.on('connection', socket =>{
     // socket.broadcast.emit('para_todos_menos_el_actual', 'este evento lo veran todos los sockets menos el actual')
 
     // socketServer.emit ('evento_para_todos', 'este mensaje lo reciben todos los sockets incluido el actual')
-    const messages = []
+    let messages = []
 
     //enviar mensajes viejos
     socket.on('mensaje_cliente', data =>{

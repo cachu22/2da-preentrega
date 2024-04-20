@@ -79,45 +79,67 @@ class CartManager {
         const cartsJSON = JSON.stringify(carts, null, 2);
         fs.writeFileSync(this.path, cartsJSON);
     }
-                        
-
-    // Método para agregar un producto al carrito
-    addProductToCart = async (cid, pid) => {
+    
+    //Leer el json de productos para traer info
+    getProductsFromFile = () => {
         try {
-            // Obtener los carritos desde el archivo
-            let carts = this.getCartsFromFile();
-
-            // Buscar el carrito por su ID
-            let cartIndex = carts.findIndex(cart => cart["id de carrito"] === parseInt(cid));
-
-            // Si no se encontró el carrito, crear uno nuevo
-            if (cartIndex === -1) {
-                const newCart = {
-                    "id de carrito": parseInt(cid),
-                    products: [{ "id de producto": pid, quantity: 1 }]
-                };
-                carts.push(newCart); // Agregar el nuevo carrito a la lista de carritos
-            } else {
-                // Si el carrito ya existe, buscar el producto por su ID
-                const existingProductIndex = carts[cartIndex].products.findIndex(item => item["id de producto"] === pid);
-                if (existingProductIndex !== -1) {
-                    // Si el producto ya está en el carrito, incrementar la cantidad
-                    carts[cartIndex].products[existingProductIndex].quantity++;
-                } else {
-                    // Si el producto no está en el carrito, agregarlo con cantidad 1
-                    carts[cartIndex].products.push({ "id de producto": pid, quantity: 1 });
-                }
-            }
-
-            // Guardar los cambios en el archivo después de modificar el carrito
-            this.saveCartsToFile(carts);
-
-            return { message: 'Producto agregado al carrito correctamente', carts };
+            const productsData = fs.readFileSync('./src/file/products.json', 'utf-8');
+            return JSON.parse(productsData);
         } catch (error) {
-            console.log(error);
-            throw error;
+            console.error('Error al leer el archivo de productos:', error);
+            return [];
         }
     }
+
+    // Método para agregar un producto al carrito
+addProductToCart = async (cid, pid) => {
+    try {
+        // Obtener los carritos desde el archivo
+        let carts = this.getCartsFromFile();
+
+        // Obtener los productos desde el archivo
+        let products = this.getProductsFromFile();
+
+        // Buscar el producto por su ID
+        const productToAdd = products.find(product => product.id === parseInt(pid));
+
+        // Buscar el carrito por su ID
+        let cartIndex = carts.findIndex(cart => cart["id de carrito"] === parseInt(cid));
+
+        // Si no se encontró el carrito, crear uno nuevo
+        if (cartIndex === -1) {
+            const newCart = {
+                "id de carrito": parseInt(cid),
+                products: [{ "id de producto": pid, quantity: 1,
+                thumbnails: productToAdd.thumbnails, // Agregar la imagen del producto
+                price: productToAdd.price // Agregar el precio del producto
+            }]
+            };
+            carts.push(newCart); // Agregar el nuevo carrito a la lista de carritos
+        } else {
+            // Si el carrito ya existe, buscar el producto por su ID
+            const existingProductIndex = carts[cartIndex].products.findIndex(item => item["id de producto"] === pid);
+            if (existingProductIndex !== -1) {
+                // Si el producto ya está en el carrito, incrementar la cantidad
+                carts[cartIndex].products[existingProductIndex].quantity++;
+            } else {
+                // Si el producto no está en el carrito, agregarlo con cantidad 1
+                carts[cartIndex].products.push({ "id de producto": pid, quantity: 1,
+                thumbnails: productToAdd.thumbnails, // Agregar la imagen del producto
+                price: productToAdd.price // Agregar el precio del producto 
+            });
+        }
+        }
+
+        // Guardar los cambios en el archivo después de modificar el carrito
+        this.saveCartsToFile(carts);
+
+        return { message: 'Producto agregado al carrito correctamente', carts };
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
 };
 
 export default CartManager;
