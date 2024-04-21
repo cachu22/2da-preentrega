@@ -87,43 +87,49 @@ app.get('/cart', (req, res) => {
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 
+// Asigna los datos de productos existentes a la variable `products`
 let products = productsData;
 
 // Manejo de conexiones de Socket.IO
-io.on('connection', socket => {
+io.on('connection', (socket) => {
+    // Registra en la consola cuando un nuevo cliente se conecta
     console.log("Nuevo cliente conectado");
 
-// Escuchar el evento 'addProduct' para agregar un nuevo producto
-socket.on('addProduct', (productData) => {
-    try {
-        // Verificar si los datos del producto están presentes
-        if (!productData || typeof productData !== 'object') {
-            throw new Error('Datos del producto no válidos');
-        }
-
-        // Agregar el nuevo producto al array de productos
-        const newProduct = {
-            title: productData.title,
-            description: productData.description,
-            price: productData.price,
-            thumbnails: productData.thumbnails,
-            stock: productData.stock
-        };
-
-        // Registrar los datos del producto agregado en la consola
-        console.log('Nuevo producto agregado:', newProduct);
-
-        products.push(newProduct);
-
-        // Guardar los productos actualizados en el archivo products.json
-        fs.writeFileSync(productsFilePath, JSON.stringify(products, null, 2));
+    // Escucha el evento 'addProduct' para agregar un nuevo producto
+    socket.on('addProduct', (productData) => {
+        // Registra en la consola los datos recibidos desde el formulario
+        console.log('Datos recibidos desde el formulario:', productData);
         
-        // Emitir un evento 'productAdded' con los datos del nuevo producto
-        io.emit('productAdded', newProduct);
+        try {
+            // Verificar si los datos del producto están presentes
+            if (!productData || typeof productData !== 'object') {
+                throw new Error('Datos del producto no válidos');
+            }
 
-    } catch (error) {
-        console.error('Error al agregar el producto:', error);
-    }
-});
+            // Agregar el nuevo producto al array de productos
+            const newProduct = {
+                //ver la generación de la ID
+                status: productData.status,
+                title: productData.title,
+                description: productData.description,
+                price: productData.price,
+                thumbnails: productData.thumbnails,
+                code: productData.code,
+                stock: productData.stock,
+                category: productData.category
+            };
 
+            // Agregar el nuevo producto al array de productos
+            products.push(newProduct);
+
+            // Guardar los productos actualizados en el archivo products.json
+            fs.writeFileSync(productsFilePath, JSON.stringify(products, null, 2));
+            
+            // Emitir un evento 'productAdded' con los datos del nuevo producto
+            io.emit('productAdded', newProduct);
+
+        } catch (error) {
+            console.error('Error al agregar el producto:', error);
+        }
+    });
 });

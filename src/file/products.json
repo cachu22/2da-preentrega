@@ -6,7 +6,6 @@
     "title": "Mouse",
     "description": "Analógico",
     "price": 100,
-    "thumbnail": "imagen1.jpg",
     "code": "a2",
     "stock": 104444,
     "category": "ropas"
@@ -18,7 +17,6 @@
     "title": "Pantalla led",
     "description": "Conexión VGA",
     "price": 1040,
-    "thumbnail": "imagen1.jpg",
     "code": "a3",
     "stock": 144,
     "category": "ropas"
@@ -30,7 +28,6 @@
     "title": "Pentium 4",
     "description": "Procesador de última linea",
     "price": 40,
-    "thumbnail": "imagen1.jpg",
     "code": "a4",
     "stock": 14454,
     "category": "ropas"
@@ -42,7 +39,6 @@
     "title": "Disco rígido",
     "description": "2GB",
     "price": 100,
-    "thumbnail": "imagen1.jpg",
     "code": "ua1",
     "stock": 104444,
     "category": "ropas"
@@ -54,7 +50,6 @@
     "title": "teclado",
     "description": "con teclas espaciales",
     "price": 100,
-    "thumbnail": "imagen1.jpg",
     "code": "tl1",
     "stock": 104444,
     "category": "ropas"
@@ -66,7 +61,6 @@
     "title": "pad",
     "description": "un poco gastado",
     "price": 1,
-    "thumbnail": "imagen1.jpg",
     "code": "pad2",
     "stock": 13,
     "category": "perifericos"
@@ -78,44 +72,8 @@
     "title": "mate",
     "description": "compañia",
     "price": 150,
-    "thumbnail": "https://picsum.photos/700/409?random",
     "code": "maate",
     "stock": 3,
     "category": "acompañamiento"
-  },
-  {
-    "title": "test",
-    "description": "12",
-    "price": "12",
-    "thumbnails": "https://picsum.photos/700/409?random",
-    "stock": "12"
-  },
-  {
-    "title": "test",
-    "description": "test",
-    "price": "12",
-    "thumbnails": "https://picsum.photos/700/409?random",
-    "stock": "12"
-  },
-  {
-    "title": "werwre",
-    "description": "12q",
-    "price": "122",
-    "thumbnails": "https://picsum.photos/700/409?random",
-    "stock": "4"
-  },
-  {
-    "title": "rewsta",
-    "description": "qwrasf",
-    "price": "333",
-    "thumbnails": "https://picsum.photos/700/409?random",
-    "stock": "12"
-  },
-  {
-    "title": "test",
-    "description": "test",
-    "price": "12",
-    "thumbnails": "https://picsum.photos/700/415?random",
-    "stock": "2"
   }
 ]
