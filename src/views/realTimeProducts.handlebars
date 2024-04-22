@@ -102,20 +102,20 @@
     <section>
         
         <h3 class="p-servicios">Ofrecemos trabajos y productos de la más alta calidad</h3>
-                                        <div class="padre-cards" id="liveProducts">
-                                                <!--Cards-->
-                                                {{!-- Acá van a ir las tarjetas nuevas --}}
-                                                {{#each products}}
-                                                <div class="card-servicios">
-                                                    <img src="{{this.thumbnails}}" alt="Imagen">
-                                                    <p>{{this.title}}</p>
-                                                    <p>Precio: {{this.price}}</p>
-                                                    <p>Descripción: {{this.description}}</p>
-                                                    <p>Stock: {{this.stock}}</p>
-                                                    <button>Agregar al carrito</button>
-                                                </div>
-                                                {{/each}}
-                                            </div>
+        <div class="padre-cards" id="liveProducts">
+                <!--Cards-->
+                {{!-- Acá van a ir las tarjetas nuevas --}}
+                {{#each products}}
+                <div class="card-servicios">
+                    <img src="{{this.thumbnails}}" alt="Imagen">
+                    <p>{{this.title}}</p>
+                    <p>Precio: {{this.price}}</p>
+                    <p>Descripción: {{this.description}}</p>
+                    <p>Stock: {{this.stock}}</p>
+                    <button id="Eliminar">Eliminar</button>
+                </div>
+                {{/each}}
+            </div>
     </section>
     
     <section>

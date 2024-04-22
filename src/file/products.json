@@ -1,5 +1,17 @@
 [
   {
+    "id": 1,
+    "status": true,
+    "thumbnails": "https://picsum.photos/700/409?random",
+    "title": "mate",
+    "description": "compañia",
+    "price": 150,
+    "thumbnail": "https://picsum.photos/700/409?random",
+    "code": "maat55e",
+    "stock": 3,
+    "category": "acompañamiento"
+  },
+  {
     "id": 2,
     "status": true,
     "thumbnails": "https://picsum.photos/700/402?random",
@@ -23,57 +35,24 @@
   },
   {
     "id": 4,
-    "status": true,
-    "thumbnails": "https://picsum.photos/700/404?random",
-    "title": "Pentium 4",
-    "description": "Procesador de última linea",
-    "price": 40,
-    "code": "a4",
-    "stock": 14454,
-    "category": "ropas"
+    "status": "nuevo",
+    "title": "rerere",
+    "description": "124",
+    "price": "124",
+    "thumbnails": "https://picsum.photos/700/409?random",
+    "code": "124",
+    "stock": "1241",
+    "category": "24"
   },
   {
     "id": 5,
-    "status": true,
-    "thumbnails": "https://picsum.photos/700/405?random",
-    "title": "Disco rígido",
-    "description": "2GB",
-    "price": 100,
-    "code": "ua1",
-    "stock": 104444,
-    "category": "ropas"
-  },
-  {
-    "id": 6,
-    "status": true,
-    "thumbnails": "https://picsum.photos/700/406?random",
-    "title": "teclado",
-    "description": "con teclas espaciales",
-    "price": 100,
-    "code": "tl1",
-    "stock": 104444,
-    "category": "ropas"
-  },
-  {
-    "id": 7,
-    "status": true,
-    "thumbnails": "https://picsum.photos/700/408?random",
-    "title": "pad",
-    "description": "un poco gastado",
-    "price": 1,
-    "code": "pad2",
-    "stock": 13,
-    "category": "perifericos"
-  },
-  {
-    "id": 1,
-    "status": true,
-    "thumbnails": "https://picsum.photos/700/409?random",
-    "title": "mate",
-    "description": "compañia",
-    "price": 150,
-    "code": "maate",
-    "stock": 3,
-    "category": "acompañamiento"
+    "status": "vamooo",
+    "title": "logrado",
+    "description": "logrado",
+    "price": "2432",
+    "thumbnails": "https://picsum.photos/700/410?random",
+    "code": "logrado",
+    "stock": "2342",
+    "category": "logrado"
   }
 ]

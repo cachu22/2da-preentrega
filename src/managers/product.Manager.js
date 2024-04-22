@@ -1,4 +1,9 @@
 import fs from 'fs'; // Importa fs como un módulo ES
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Clase ProductManager
 class ProductManager {
@@ -7,15 +12,20 @@ class ProductManager {
   }
 
 // Método para obtener la lista de productos desde el archivo
-getProductsFromFile() {
-  if (!fs.existsSync(this.path)) { // Verifica si el archivo de productos existe
-      return []; // Si no existe, retorna una lista vacía
+getProductsFromFile(products) {
+  if (!fs.existsSync(this.filePath)) { // Verifica si el archivo de productos existe
+      return ["lala"]; // Si no existe, retorna una lista vacía
   }
-  const data = fs.readFileSync(this.path, 'utf8'); // Lee el archivo de productos
+  const data = fs.readFileSync(this.filePath, 'utf8'); // Lee el archivo de productos
   if (!data.trim()) { // Verifica si el archivo está vacío
       return []; // Si está vacío, retorna una lista vacía
   }
   return JSON.parse(data); // Retorna la lista de productos parseada desde el formato JSON
+}
+
+// Método para guardar la lista de productos en el archivo
+saveProductsToFile(products) {
+  fs.writeFileSync(this.filePath, JSON.stringify(products, null, 2));
 }
 
 // Método para obtener todos los productos
@@ -32,7 +42,7 @@ addProduct(product) {
     }
   }
 
-  const products = this.getProductsFromFile(); // Obtiene la lista de productos desde el archivo
+  const products = ProductManager.getProductsFromFile(); // Obtiene la lista de productos desde el archivo
 
   // Validación para evitar códigos de productos repetidos
   if (products.find(prod => prod.code === product.code)) {
@@ -62,12 +72,27 @@ addProduct(product) {
 
 // Método para generar un ID único para un nuevo producto
 generateUniqueId(products) {
-  const existingIds = new Set(products.map(product => product.id)); // Obtener todos los IDs existentes
-  let newId = 1; // Iniciar desde 1
-  while (existingIds.has(newId)) { // Mientras el nuevo ID ya exista en la lista de IDs
-    newId++; // Incrementar el ID
+  console.log("Entrando en generateUniqueId");
+  
+  // Obtener todos los IDs existentes
+  const existingIds = new Set(products.map(product => product.id));
+  console.log("Existing IDs:", existingIds);
+
+  // Iniciar desde 1
+  let newId = 1;
+
+  // Mientras el nuevo ID ya exista en la lista de IDs
+  while (existingIds.has(newId)) {
+    console.log(`El ID ${newId} ya existe en la lista de IDs`);
+    
+    // Incrementar el ID
+    newId++;
   }
-  return newId; // Devolver el nuevo ID único
+  
+  console.log("Nuevo ID único:", newId);
+
+  // Devolver el nuevo ID único
+  return newId;
 }
 
   // Método para obtener un producto por su ID
@@ -102,10 +127,32 @@ updateProduct(productId, updatedFields) {
   saveProductsToFile(products) {
     fs.writeFileSync(this.path, JSON.stringify(products, null, 2)); // Guarda la lista de productos en el archivo en formato JSON
   }
-}
 
-// Creación de una instancia de ProductManager con la ruta del archivo de productos
-// const manager = new ProductManager('products.json');
+  // Método para obtener la lista de productos desde el archivo
+  getProductsFromFile() {
+    console.log("Ruta del archivo de productos:", this.path);
+    if (!fs.existsSync(this.path)) {
+        console.log("El archivo de productos no existeeee.");
+        return [];
+    }
+    const data = fs.readFileSync(this.path, 'utf8');
+    if (!data.trim()) {
+        console.log("El archivo de productos está vacíoooo.");
+        return [];
+    }
+    return JSON.parse(data);
+  }
+
+  // Método para imprimir los productos almacenados en el archivo
+  printProductsFromFile() {
+    const products = this.getProductsFromFile();
+    console.log("Productos en el archivo:");
+    console.log(products);
+  }
+  }
+
+  // Creación de una instancia de ProductManager con la ruta del archivo de productos
+  const manager = new ProductManager(`${__dirname}/file/products.json`);
 
 // Exporta la clase ProductManager para su uso en otros archivos
 export default ProductManager;

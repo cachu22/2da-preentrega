@@ -1,71 +1,33 @@
-// Importa el módulo 'fs' para trabajar con archivos
-const fs = require('fs');
+// Clase ProductManager
+class ProductManager {
+    constructor(filePath) {
+        this.path = filePath;
+    }
 
-// Define la clase CartManager
-class CartManager {
-    // Método para obtener los productos desde el archivo
-    getProductsFromFile = () => {
-        try {
-            const productsData = fs.readFileSync('./file/products.json', 'utf-8');
-            return JSON.parse(productsData);
-        } catch (error) {
-            console.error('Error al leer el archivo de productos:', error);
+    // Método para obtener la lista de productos desde el archivo
+    getProductsFromFile() {
+        if (!fs.existsSync(this.path)) {
+            console.log("El archivo de productos no existe.");
             return [];
         }
-    }
-
-    // Método para agregar un producto al carrito
-    addProductToCart = async (cid, pid) => {
-        try {
-            // Obtener los carritos desde el archivo
-            let carts = this.getCartsFromFile();
-
-            // Obtener los productos desde el archivo
-            let products = this.getProductsFromFile();
-
-            // Buscar el carrito por su ID
-            let cartIndex = carts.findIndex(cart => cart["id de carrito"] === parseInt(cid));
-
-            // Si no se encontró el carrito, crear uno nuevo
-            if (cartIndex === -1) {
-                const newCart = {
-                    "id de carrito": parseInt(cid),
-                    products: [{ "id de producto": pid, quantity: 1 }]
-                };
-                carts.push(newCart); // Agregar el nuevo carrito a la lista de carritos
-            } else {
-                // Si el carrito ya existe, buscar el producto por su ID
-                const existingProductIndex = carts[cartIndex].products.findIndex(item => item["id de producto"] === pid);
-                if (existingProductIndex !== -1) {
-                    // Si el producto ya está en el carrito, incrementar la cantidad
-                    carts[cartIndex].products[existingProductIndex].quantity++;
-                } else {
-                    // Si el producto no está en el carrito, agregarlo con cantidad 1
-                    const productToAdd = products.find(product => product["id de producto"] === pid);
-                    if (productToAdd) {
-                        // Si se encontró el producto, agregarlo al carrito con su información
-                        carts[cartIndex].products.push({
-                            "id de producto": pid,
-                            quantity: 1,
-                            thumbnails: productToAdd.thumbnails,
-                            price: productToAdd.price
-                        });
-                    }
-                }
-            }
-
-            // Guardar los cambios en el archivo después de modificar el carrito
-            this.saveCartsToFile(carts);
-
-            return { message: 'Producto agregado al carrito correctamente', carts };
-        } catch (error) {
-            console.log(error);
-            throw error;
+        const data = fs.readFileSync(this.path, 'utf8');
+        if (!data.trim()) {
+            console.log("El archivo de productos está vacío.");
+            return [];
         }
+        return JSON.parse(data);
     }
 
-    // Otros métodos de la clase...
+    // Método para imprimir los productos almacenados en el archivo
+    printProductsFromFile() {
+        const products = this.getProductsFromFile();
+        console.log("Productos en el archivo:");
+        console.log(products);
+    }
 }
 
-// Exporta la clase CartManager
-module.exports = CartManager;
+// Creación de una instancia de ProductManager con la ruta del archivo de productos
+const manager = new ProductManager('./file/products.json');
+
+// Imprimir los productos almacenados en el archivo
+manager.printProductsFromFile();

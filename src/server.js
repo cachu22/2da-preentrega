@@ -10,6 +10,7 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { productsSocket } from './utils/productsSocket.js';
+import ProductManager from './managers/product.Manager.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -19,7 +20,7 @@ const productsData = JSON.parse(fs.readFileSync(__dirname + '/file/products.json
 const cartData = JSON.parse(fs.readFileSync(__dirname + '/file/carts.json', 'utf-8'));
 
 // Establece la ruta completa al archivo JSON que contiene los datos de los productos
-const productsFilePath = __dirname + '/file/products.json';
+// const productsFilePath = `${__dirname}/file/products.json`;
 
 // Crea una aplicación express
 const app = express();
@@ -90,6 +91,8 @@ app.use('/api/carts', cartsRouter);
 // Asigna los datos de productos existentes a la variable `products`
 let products = productsData;
 
+const manager = new ProductManager(`${__dirname}/file/products.json`);
+
 // Manejo de conexiones de Socket.IO
 io.on('connection', (socket) => {
     // Registra en la consola cuando un nuevo cliente se conecta
@@ -106,9 +109,15 @@ io.on('connection', (socket) => {
                 throw new Error('Datos del producto no válidos');
             }
 
+            // Obtener la lista actualizada de productos
+            const updatedProducts = manager.getProducts();
+
+            // Generar un nuevo ID único para el producto
+            const newProductId = manager.generateUniqueId(updatedProducts);
+
             // Agregar el nuevo producto al array de productos
             const newProduct = {
-                //ver la generación de la ID
+                id: newProductId,
                 status: productData.status,
                 title: productData.title,
                 description: productData.description,
@@ -118,13 +127,14 @@ io.on('connection', (socket) => {
                 stock: productData.stock,
                 category: productData.category
             };
+            console.log('datos del producto nuevo', newProduct);
 
             // Agregar el nuevo producto al array de productos
-            products.push(newProduct);
+            updatedProducts.push(newProduct);
 
             // Guardar los productos actualizados en el archivo products.json
-            fs.writeFileSync(productsFilePath, JSON.stringify(products, null, 2));
-            
+            fs.writeFileSync(__dirname + '/file/products.json', JSON.stringify(updatedProducts, null, 2));
+
             // Emitir un evento 'productAdded' con los datos del nuevo producto
             io.emit('productAdded', newProduct);
 
