@@ -2,7 +2,6 @@
 import express from 'express';
 import exphbs from 'express-handlebars';
 import productsRouter from './Routes/products.router.js';
-import { router as view } from './Routes/realTimeProducts.router.js';
 import { router as cartsRouter } from './Routes/carts.router.js';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
@@ -112,6 +111,13 @@ io.on('connection', (socket) => {
             // Obtener la lista actualizada de productos
             const updatedProducts = manager.getProducts();
 
+            // Validar si el código del producto ya existe
+            if (updatedProducts.find(prod => prod.code === productData.code)) {
+                // Emitir un evento al cliente para indicar que el código ya está en uso
+                socket.emit('codeExists', { message: `El código ${productData.code} ya está siendo utilizado por otro producto. Por favor, elija otro código.` });
+                return; // Salir del proceso de agregar producto si el código ya existe
+            }
+
             // Generar un nuevo ID único para el producto
             const newProductId = manager.generateUniqueId(updatedProducts);
 
@@ -127,7 +133,6 @@ io.on('connection', (socket) => {
                 stock: productData.stock,
                 category: productData.category
             };
-            console.log('datos del producto nuevo', newProduct);
 
             // Agregar el nuevo producto al array de productos
             updatedProducts.push(newProduct);

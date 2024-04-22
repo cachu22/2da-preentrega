@@ -32,27 +32,5 @@
     "code": "a3",
     "stock": 144,
     "category": "ropas"
-  },
-  {
-    "id": 4,
-    "status": "nuevo",
-    "title": "rerere",
-    "description": "124",
-    "price": "124",
-    "thumbnails": "https://picsum.photos/700/409?random",
-    "code": "124",
-    "stock": "1241",
-    "category": "24"
-  },
-  {
-    "id": 5,
-    "status": "vamooo",
-    "title": "logrado",
-    "description": "logrado",
-    "price": "2432",
-    "thumbnails": "https://picsum.photos/700/410?random",
-    "code": "logrado",
-    "stock": "2342",
-    "category": "logrado"
   }
 ]

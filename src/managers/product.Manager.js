@@ -42,7 +42,7 @@ addProduct(product) {
     }
   }
 
-  const products = ProductManager.getProductsFromFile(); // Obtiene la lista de productos desde el archivo
+  const products = this.getProductsFromFile(); // Obtiene la lista de productos desde el archivo
 
   // Validación para evitar códigos de productos repetidos
   if (products.find(prod => prod.code === product.code)) {
