@@ -48,169 +48,234 @@
     </header>
 
     <main id="servicios">
-        <section>
-            <h3 class="p-servicios">Agregar nuevo producto</h3>
-            <form id="addProductForm" class="padre-cards">
-                <div class="mb-3">
-                    <label for="status" class="form-label">Estado</label>
-                    <input type="text" class="form-control" id="status" name="status" placeholder="Estado" required>
-                </div>
-                <div class="mb-3">
-                    <label for="thumbnails" class="form-label">URL de la imagen</label>
-                    <input type="url" class="form-control" id="thumbnails" name="thumbnails" placeholder="URL de la imagen" required>
-                </div>
-                <div class="mb-3">
-                    <label for="title" class="form-label">Título</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Título" required>
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Descripción</label>
-                    <textarea class="form-control" id="description" name="description" placeholder="Descripción" required></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="price" class="form-label">Precio</label>
-                    <input type="number" class="form-control" id="price" name="price" min="0" step="0.01" placeholder="Precio" required>
-                </div>
-                <div class="mb-3">
-                    <label for="code" class="form-label">Código</label>
-                    <input type="text" class="form-control" id="code" name="code" placeholder="Código" required>
-                </div>
-                <div class="mb-3">
-                    <label for="stock" class="form-label">Stock</label>
-                    <input type="number" class="form-control" id="stock" name="stock" min="0" placeholder="Stock" required>
-                </div>
-                <div class="mb-3">
-                    <label for="category" class="form-label">Categoría</label>
-                    <input type="text" class="form-control" id="category" name="category" placeholder="Categoría" required>
-                </div>
-                    <!-- Agrega un mensaje de error para mostrar si el código ya existe -->
-                    <div id="codeErrorMessage" class="alert alert-danger" style="display: none;"></div>
-                        <!-- Mensaje de error para el código -->
-                        <div id="codeError" style="display: none;">
-                    <p id="codeErrorMessage" style="color: red;"></p>
-                    </div>
-                <button type="submit" class="btn btn-primary">Agregar Producto</button>
-            </form>
-        </section>
-        
-        <section>
-            <h3 class="p-servicios">Ofrecemos trabajos y productos de la más alta calidad</h3>
-            <div class="padre-cards" id="liveProducts">
-                <!--Cards-->
-                {{!-- Acá van a ir las tarjetas nuevas --}}
-                {{#each products}}
-                <div class="card-servicios">
-                    <img src="{{this.thumbnails}}" alt="Imagen">
-                    <p>{{this.title}}</p>
-                    <p>Precio: {{this.price}}</p>
-                    <p>Descripción: {{this.description}}</p>
-                    <p>Stock: {{this.stock}}</p>
-                    <button id="Eliminar">Eliminar</button>
-                </div>
-                {{/each}}
+    <section>
+        <h3 class="p-servicios">Agregar nuevo producto</h3>
+        <form id="addProductForm" class="padre-cards">
+            <div class="mb-3">
+                <label for="status" class="form-label">Estado</label>
+                <input type="text" class="form-control" id="status" name="status" placeholder="Estado" required>
             </div>
-        </section>
-        
-        <section>
-            <div class="chat">
-                <h4 class="letras-chat">chat socket</h4>
-                <input type="text" name="message" id="message">
-                <div id="list-message"></div>
+            <div class="mb-3">
+                <label for="thumbnails" class="form-label">URL de la imagen</label>
+                <input type="url" class="form-control" id="thumbnails" name="thumbnails" placeholder="URL de la imagen" required>
             </div>
-        </section>
-
-        <!--Seccion de banner-->
-        <section id="banner__productosyservicios">
-                
-            <h3>Seguridad informática</h3>
-
-            <div id="padre__banner" >
-                <!--Banner 1-->
-                <div class="banner__info">
-                    <h4>Antivirus</h4>
-                    <p>Limpieza y elimincación de virus</p>
-                </div>
-
-                <!--Banner 2-->
-                <div class="banner__info">
-                    <h4>Recuperación de datos</h4>
-                    <p>Recuperación de documentos</p>
-                </div>
-
-                <!--Banner 3-->
-                <div class="banner__info">
-                    <h4>Wannacry</h4>
-                    <p>Recuperamos archivos encriptados</p>
-                </div>
-
-                <!--Banner 4-->
-                <div class="banner__info">
-                    <h4>Software de seguridad</h4>
-                    <p>Antivirus de primer nivel</p>
-                </div>
+            <div class="mb-3">
+                <label for="title" class="form-label">Título</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Título" required>
             </div>
-        </section>
-    </main>
+            <div class="mb-3">
+                <label for="description" class="form-label">Descripción</label>
+                <textarea class="form-control" id="description" name="description" placeholder="Descripción" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Precio</label>
+                <input type="number" class="form-control" id="price" name="price" min="0" step="0.01" placeholder="Precio" required>
+            </div>
+            <div class="mb-3">
+                <label for="code" class="form-label">Código</label>
+                <input type="text" class="form-control" id="code" name="code" placeholder="Código" required>
+            </div>
+            <div class="mb-3">
+                <label for="stock" class="form-label">Stock</label>
+                <input type="number" class="form-control" id="stock" name="stock" min="0" placeholder="Stock" required>
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Categoría</label>
+                <input type="text" class="form-control" id="category" name="category" placeholder="Categoría" required>
+            </div>
+            <!-- Agrega un mensaje de error para mostrar si el código ya existe -->
+            <div id="codeErrorMessage" class="alert alert-danger" style="display: none;"></div>
+            <!-- Mensaje de error para el código -->
+            <div id="codeError" style="display: none;">
+                <p id="codeErrorMessage" style="color: red;"></p>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Producto</button>
+        </form>
+    </section>
 
-    <footer id="footer">
-        Web creada por Adrián Fernández. Todos los derechos reservados.
-    </footer>
+    <section>
+    <h3 class="p-servicios">Ofrecemos trabajos y productos de la más alta calidad</h3>
+    <div class="padre-cards" id="liveProducts">
+        <!-- Tarjetas de productos -->
+        {{!-- Acá van a ir las tarjetas nuevas --}}
+        {{#each products}}
+        <div class="card-servicios">
+            <img src="{{this.thumbnails}}" alt="Imagen">
+            <p>{{this.title}}</p>
+            <p>Precio: {{this.price}}</p>
+            <p>Descripción: {{this.description}}</p>
+            <p>Stock: {{this.stock}}</p>
+            <!-- Botón para eliminar el producto -->
+            <button class="eliminar-producto" data-product-id="{{this.id}}">Eliminar</button>
+        </div>
+        {{/each}}
+    </div>
+    </section>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <!-- Script de Handlebars desde CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <section>
+        <div class="chat">
+            <h4 class="letras-chat">chat socket</h4>
+            <input type="text" name="message" id="message">
+            <div id="list-message"></div>
+        </div>
+    </section>
+
+    <!--Seccion de banner-->
+    <section id="banner__productosyservicios">
+
+        <h3>Seguridad informática</h3>
+
+        <div id="padre__banner" >
+            <!--Banner 1-->
+            <div class="banner__info">
+                <h4>Antivirus</h4>
+                <p>Limpieza y elimincación de virus</p>
+            </div>
+
+            <!--Banner 2-->
+            <div class="banner__info">
+                <h4>Recuperación de datos</h4>
+                <p>Recuperación de documentos</p>
+            </div>
+
+            <!--Banner 3-->
+            <div class="banner__info">
+                <h4>Wannacry</h4>
+                <p>Recuperamos archivos encriptados</p>
+            </div>
+
+            <!--Banner 4-->
+            <div class="banner__info">
+                <h4>Software de seguridad</h4>
+                <p>Antivirus de primer nivel</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer id="footer">
+    Web creada por Adrián Fernández. Todos los derechos reservados.
+</footer>
+
+<script src="/socket.io/socket.io.js"></script>
+<!-- Script de Handlebars desde CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
     <script>
-        // Conectarse al servidor de socket.io
-        const socket = io();
 
-        // Manejar el evento 'codeExists' para mostrar un mensaje de error si el código ya existe
-        socket.on('codeExists', (data) => {
-            const errorMessageElement = document.getElementById('codeErrorMessage');
-            errorMessageElement.textContent = data.message;
+        let products = [];
 
-            // Mostrar el mensaje de error
-            document.getElementById('codeError').innerHTML = errorMessageElement.outerHTML;
-            // Mostrar un alert indicando que el código ya existe
-            alert(data.message);
-            // Agregar un mensaje de registro (log) en la consola del navegador
-            console.log('El código ya existe:', data.code);
-        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const socket = io();
+            const liveProducts = document.getElementById('liveProducts');
 
-        // Manejar el evento 'productAdded' para agregar una nueva tarjeta de producto
-        socket.on('productAdded', (newProduct) => {
-            const productHtml = `
-                <div class="product">
-                    <img src="${newProduct.thumbnails}" alt="Imagen">
-                    <p>Título: ${newProduct.title}</p>
-                    <p>Descripción: ${newProduct.description}</p>
-                    <p>Precio: ${newProduct.price}</p>
-                    <p>Stock: ${newProduct.stock}</p>
-                    <button>Agregar al carrito</button>
-                </div>
-            `;
-            // Agregar la nueva tarjeta de producto al contenedor
-            document.getElementById('liveProducts').insertAdjacentHTML('beforeend', productHtml);
+            // Manejar el evento 'codeExists' para mostrar un mensaje de error si el código ya existe
+            socket.on('codeExists', (data) => {
+                const errorMessageElement = document.getElementById('codeErrorMessage');
+                errorMessageElement.textContent = data.message;
 
-            // Limpiar el formulario después de enviarlo
-            addProductForm.reset();
-        });
+                // Mostrar el mensaje de error
+                document.getElementById('codeError').innerHTML = errorMessageElement.outerHTML;
+                // Mostrar un alert indicando que el código ya existe
+                alert(data.message);
+                // Agregar un mensaje de registro (log) en la consola del navegador
+                console.log('El código ya existe:', data.code);
+            });
 
-        // Manejar el envío del formulario de agregar producto
-        const addProductForm = document.getElementById('addProductForm');
-        addProductForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+            // Manejar el evento 'productAdded' para agregar una nueva tarjeta de producto
+            socket.on('productAdded', (newProduct) => {
+                const productHtml = `
+                    <div class="card-servicios">
+                        <img src="${newProduct.thumbnails}" alt="Imagen">
+                        <p>${newProduct.title}</p>
+                        <p>Precio: ${newProduct.price}</p>
+                        <p>Descripción: ${newProduct.description}</p>
+                        <p>Stock: ${newProduct.stock}</p>
+                        <!-- Botón para eliminar el producto -->
+                        <button class="eliminar-producto" data-product-id="${newProduct.id}">Eliminar</button>
+                    </div>
+                `;
+                // Agregar la nueva tarjeta de producto al contenedor
+                liveProducts.insertAdjacentHTML('beforeend', productHtml);
 
-            // Obtener los datos del formulario y convertirlos a un objeto JavaScript
-            const formData = new FormData(addProductForm);
-            const productData = {};
-            for (const [key, value] of formData.entries()) {
-                productData[key] = value;
+                // Limpiar el formulario después de enviarlo
+                addProductForm.reset();
+            });
+
+            // Manejar el envío del formulario de agregar producto
+            addProductForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Obtener los datos del formulario y convertirlos a un objeto JavaScript
+                const formData = new FormData(addProductForm);
+                const productData = {};
+                for (const [key, value] of formData.entries()) {
+                    productData[key] = value;
+                }
+
+                // Emitir un evento al servidor con los datos del producto
+                console.log('Enviando datos del producto al servidor:', productData);
+                socket.emit('addProduct', productData);
+            });
+
+            // Actualizar el manejador de eventos clic a los botones "Eliminar"
+            liveProducts.addEventListener('click', (e) => {
+                if (e.target.classList.contains('eliminar-producto')) {
+                    // Obtener el ID del producto a eliminar
+                    const productId = e.target.getAttribute('data-product-id');
+                    // Enviar una solicitud al servidor para eliminar el producto
+                    fetch(`/api/products/${productId}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // Si la eliminación es exitosa, emitir evento al servidor
+                            socket.emit('eliminarProducto', productId);
+                        } else {
+                            console.error('Error al eliminar el producto');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al eliminar el producto:', error);
+                    });
+                }
+            });
+
+            // Escuchar el evento 'productoEliminado' del servidor
+            socket.on('productoEliminado', (productId) => {
+            // Filtrar los productos en el cliente para eliminar el producto con el ID recibido
+            products = products.filter(product => product.id !== productId);
+            })
+
+            // Escuchar el evento 'productosActualizados' del servidor
+            socket.on
+            
+            ('productosActualizados', (updatedProducts) => {
+            // Actualizar la lista de productos con los nuevos datos recibidos
+            products = updatedProducts;
+
+            // Volver a renderizar los productos en la interfaz de usuario
+            renderProducts();
+
+            // Función para renderizar los productos en la interfaz de usuario
+            function renderProducts() {
+                // Limpiar la lista de productos
+                liveProducts.innerHTML = '';
+
+                // Renderizar cada producto en la lista
+                products.forEach(product => {
+                    const productHtml = `
+                        <div class="card-servicios">
+                            <img src="${product.thumbnails}" alt="Imagen">
+                            <p>${product.title}</p>
+                            <p>Precio: ${product.price}</p>
+                            <p>Descripción: ${product.description}</p>
+                            <p>Stock: ${product.stock}</p>
+                            <button class="eliminar-producto" data-product-id="${product.id}">Eliminar</button>
+                        </div>
+                    `;
+                    liveProducts.insertAdjacentHTML('beforeend', productHtml);
+                });
             }
-
-            // Emitir un evento al servidor con los datos del producto
-            console.log('Enviando datos del producto al servidor:', productData);
-            socket.emit('addProduct', productData);
-        });
+            })
+        })
     </script>
-</body>
-</html>

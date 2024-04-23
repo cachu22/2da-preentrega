@@ -146,5 +146,33 @@ io.on('connection', (socket) => {
         } catch (error) {
             console.error('Error al agregar el producto:', error);
         }
+
+        //Enviar datos de productos
+
+        io.on('connection', (socket) => {
+            // Enviar los datos de los productos al cliente cuando se conecta
+            socket.emit('productos', productos);
+        });
+        
+    });
+
+    // Escuchar el evento 'eliminarProducto' del cliente
+    socket.on('eliminarProducto', (productId) => {
+    // Imprimir la ID del producto recibida desde el cliente
+    console.log('Cliente envió la solicitud para eliminar el producto con ID:', productId);
+    try {
+        // Llama a la función deleteProduct del productManager y pasa el productId
+        manager.deleteProduct(productId);
+
+        // Después de eliminar el producto, cargar la lista de productos actualizada
+        const updatedProducts = manager.getProducts();
+
+        // Emitir un evento al cliente con la lista actualizada de productos
+        io.emit('productosActualizados', updatedProducts);
+        } catch (error) {
+        console.error('Error al eliminar el producto:', error);
+        // Si hay un error, puedes emitir un evento de error al cliente para manejarlo en el frontend
+        socket.emit('eliminarProductoError', { productId, error: error.message });
+        }
     });
 });
