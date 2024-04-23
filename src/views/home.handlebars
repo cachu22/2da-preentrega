@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Palabras clave-->
+    <meta name="keywords" content="soporte, reparacion de pc, periféricos, mantenimiento de pc, backup, ayuda pc lenta, instalacion de windows, formateo, disco rigido, disco solido, auriculares, gabinete, actualizacion de pc" >
+    <!--Meta Description-->
+    <meta name= "Description" content="Tenemos los técnicos más especializados en diferentes ramas de la tecnología para que sin dudas podamos ayudarte con tus necesidades">
+    <!--CSS Bootstrap-->
+    <!--CSS Bootstrap-->
+    <!--Linkeando bootstrap con CDN-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <!--CSS Propio-->
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>TecniPC | Productos y servicios</title>
+</head>
+
+<!--Navegación-->
+<body id="grilla-gral">
+    <header id="header-navegacion">
+        <!-- Menú de navegación -->
+        <nav class="navbar navbar-expand-lg bg-light w-100">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../index.html">
+                    <!--Logo-->
+                    <img src="../img/logo-inicio.png" alt="Logo" class="logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navegacion-web">
+                            <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../index.html">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../pages/QuienesSomos.html">Quienes somos</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../pages/Servicios.html">Servicios</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../pages/Galeria.html">Galeria</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../pages/Contacto.html">Contacto</a>
+                            </li>
+                        </ul>
+                    </div>
+            </div>
+        </nav>
+        
+        <h1>TecniPC</h1>
+        <h2>Productos y servicios</h2>
+    </header>
+
+    <main id="servicios">
+        
+        <h3 class="p-servicios">Ofrecemos trabajos y productos de la más alta calidad</h3>
+        <div class="padre-cards">
+            <!--Card 1-->
+            {{#each products}}
+            <div class="card-servicios">
+                <img src="{{this.thumbnails}}" alt="Imagen">
+                <p>{{this.title}}</p>
+                <p>Precio: {{this.price}}</p>
+                <p>Descripción: {{this.description}}</p>
+                <p>Stock: {{this.stock}}</p>
+                <button>Agregar al carrito</button>
+            </div>
+            {{/each}}
+        </div>
+    </section>
+
+        <!--Seccion de banner-->
+        <section id="banner__productosyservicios">
+                
+            <h3>Seguridad informática</h3>
+
+            <div id="padre__banner" >
+                <!--Banner 1-->
+                <div class="banner__info">
+                    <h4>Antivirus</h4>
+                    <p>Limpieza y elimincación de virus</p>
+                </div>
+
+                <!--Banner 2-->
+                <div class="banner__info">
+                    <h4>Recuperación de datos</h4>
+                    <p>Recuperación de documentos</p>
+                </div>
+
+                <!--Banner 3-->
+                <div class="banner__info">
+                    <h4>Wannacry</h4>
+                    <p>Recuperamos archivos encriptados</p>
+                </div>
+
+                <!--Banner 4-->
+                <div class="banner__info">
+                    <h4>Software de seguridad</h4>
+                    <p>Antivirus de primer nivel</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        Web creada por Adrián Fernández. Todos los derechos reservados.
+    </footer>
+
+    
+    <!--Script de Bootstrap con CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    </body>
+    </html>

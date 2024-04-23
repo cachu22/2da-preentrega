@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "status": "true",
+    "title": "Gabinete",
+    "description": "Reciclado",
+    "price": "20",
+    "thumbnails": "https://picsum.photos/700/409?random",
+    "code": "Gab12",
+    "stock": "1",
+    "category": "Gabinetes"
+  },
+  {
+    "id": 2,
+    "status": "true",
+    "title": "Cable Power",
+    "description": "En corto",
+    "price": "10",
+    "thumbnails": "https://picsum.photos/700/410?random",
+    "code": "Cable1",
+    "stock": "5",
+    "category": "Cables"
+  },
+  {
+    "id": 3,
+    "status": "true",
+    "title": "Teclado",
+    "description": "Faltan Teclas",
+    "price": "25",
+    "thumbnails": "https://picsum.photos/700/411?random",
+    "code": "Teclado2",
+    "stock": "5",
+    "category": "Hard"
+  }
+]
