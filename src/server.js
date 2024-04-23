@@ -100,7 +100,7 @@ io.on('connection', (socket) => {
     
     socket.on('addProduct', (productData) => {
         handleAddProduct(productData, manager, io);
-        console.log('datos recibidos desde el cliente al servidor', productData);
+        console.log('datos recibidos desde el cliente', productData);
     });
 
     socket.on('eliminarProducto', (productId) => {
