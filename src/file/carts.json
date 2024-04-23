@@ -7,6 +7,12 @@
         "quantity": 4,
         "thumbnails": "https://picsum.photos/700/406?random",
         "price": 100
+      },
+      {
+        "id de producto": "3",
+        "quantity": 3,
+        "thumbnails": "https://picsum.photos/700/411?random",
+        "price": "2342"
       }
     ]
   },
@@ -49,5 +55,9 @@
         "price": 100
       }
     ]
+  },
+  {
+    "id de carrito": 4,
+    "products": []
   }
 ]

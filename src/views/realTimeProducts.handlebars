@@ -53,7 +53,10 @@
         <form id="addProductForm" class="padre-cards">
             <div class="mb-3">
                 <label for="status" class="form-label">Estado</label>
-                <input type="text" class="form-control" id="status" name="status" placeholder="Estado" required>
+                    <select class="form-select" id="status" name="status" required>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
             </div>
             <div class="mb-3">
                 <label for="thumbnails" class="form-label">Selecciona una imagen</label>
@@ -118,14 +121,6 @@
     </div>
     </section>
 
-    <section>
-        <div class="chat">
-            <h4 class="letras-chat">chat socket</h4>
-            <input type="text" name="message" id="message">
-            <div id="list-message"></div>
-        </div>
-    </section>
-
     <!--Seccion de banner-->
     <section id="banner__productosyservicios">
 
@@ -166,4 +161,5 @@
 <script src="/socket.io/socket.io.js"></script>
 <!-- Script de Handlebars desde CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+{{!-- Link al js con Handlebars --}}
 <script src="/js/productosRealTime.js"></script>
