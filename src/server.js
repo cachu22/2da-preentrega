@@ -57,7 +57,7 @@ app.set('views', __dirname + '/views');
 app.use(productsSocket(io));
 
 // Rutas
-app.get('/home', (req, res) => {
+app.get('/', (req, res) => {
     res.render('home', { products: productsData });
 });
 
