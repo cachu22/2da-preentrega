@@ -15,7 +15,7 @@
 
     <!--CSS Propio-->
     <link rel="stylesheet" href="../css/styles.css">
-    <title>TecniPC | Productos y servicios</title>
+    <title id="Title">TecniPC | Productos y servicios</title>
 </head>
 
 <!--Navegación-->
@@ -58,6 +58,12 @@
     </header>
 
     <main id="servicios">
+
+        <div id="chatBox">
+            <input type="text" name="chatInput" id="chatInput">
+            <button id="chatSendBtn">Enviar</button>
+            <div id="chatMessages"></div>
+        </div>
         
         <h3 class="p-servicios">Ofrecemos trabajos y productos de la más alta calidad</h3>
         <div class="padre-cards">
@@ -112,9 +118,10 @@
         Web creada por Adrián Fernández. Todos los derechos reservados.
     </footer>
 
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!--Script de Bootstrap con CDN-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="/chat.js"></script>
     </body>
     </html>

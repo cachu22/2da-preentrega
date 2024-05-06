@@ -24,6 +24,11 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-image: url(../img/background-gral.jpg); }
 
+  /*título*/
+  #Title {
+    margin-bottom: 5rem;
+  }
+
 /*Fuente__H1*/
 h1 {
   margin-bottom: 1rem;
@@ -33,7 +38,8 @@ h1 {
 
 /*Fuente__H2*/
 h2 {
-  margin: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 /*Fuente__H3*/
@@ -224,13 +230,23 @@ section div img {
   justify-items: center; }
 
   /*Apartado chat*/
-.chat {
-  margin-bottom: 3rem;
-  margin-top: 3rem;
+#chatBox {
+  background-color: aquamarine;
+  width: 10cm;
+    height: 4cm;
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow-y: scroll;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6rem;
+    margin-bottom: 1rem;
+    position: relative; 
+    z-index: 1; 
 }
 
-.letras-chat {
-  color: white;
+#chatInput{
+  margin: auto;
 }
 
 /*Banner-productos-y-servicios*/
@@ -412,6 +428,15 @@ img {
 /*Forulario_Color_fondo*/
 #formulario {
   background-color: white; }
+
+/*Separacion del bloque de imagen*/
+#myfile {
+  margin-top: 1rem;
+}
+
+input[type="file"] {
+  color: transparent;
+}
 
 /*Texto_Alineacion_Extend*/
 /*Grilla*/

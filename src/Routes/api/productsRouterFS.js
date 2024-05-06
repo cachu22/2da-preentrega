@@ -1,19 +1,14 @@
 import express from 'express';
-import ProductManager from '../managers/product.Manager.js';
+import ProductManager from '../../dao/product.ManagerFS.js';
+
 const router = express.Router();
-
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-// Crea una instancia de ProductManager con el archivo 'products.json'
 const manager = new ProductManager('./src/file/products.json');
 
+// Rutas para productos locales
 // Ruta para listar todos los productos (GET /)
 router.get('/', (req, res) => {
     const { limit } = req.query; // Obtiene el parámetro 'limit' de la consulta
-    let products = manager.getProducts(); // Obtiene todos los productos del gestor de productos
+    let products = manager.getProducts("test"); // Obtiene todos los productos del gestor de productos
     
     // Aplica un límite a la lista de productos si se proporciona el parámetro 'limit' en la consulta
     if (limit) {
@@ -35,6 +30,7 @@ router.get('/:pid', (req, res) => {
     } else {
         res.status(404).json({ error: 'Producto no encontrado' }); // Envía un mensaje de error si el producto no se encuentra
     }
+    console.log('el producto en cuestion', product);
 });
 
 // Ruta para agregar un nuevo producto con campos (POST /)
@@ -61,7 +57,7 @@ router.put('/:pid', (req, res) => {
     }
 });
 
-// Ruta para eliminar un producto por su ID
+// Ruta para eliminar un producto por su ID LF
 router.delete('/:pid', (req, res) => {
     const { pid } = req.params; // Obtiene el parámetro de ruta 'pid' que representa el ID del producto
     try {

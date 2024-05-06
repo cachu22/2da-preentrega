@@ -9,7 +9,6 @@ class CartManager {
         const cartsData = this.getCartsFromFile();
         return cartsData.carts;
     }
-    
 
     // Método para obtener los datos de los carritos desde el archivo
     getCartsFromFile() {

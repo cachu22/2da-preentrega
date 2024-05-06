@@ -24,12 +24,12 @@
   {
     "id": 3,
     "status": "true",
-    "title": "sdfbs",
-    "description": "dsfb",
-    "price": "4",
-    "thumbnails": "https://picsum.photos/700/409?random",
-    "code": "4",
-    "stock": "4",
-    "category": "4"
+    "thumbnails": "https://picsum.photos/700/410?random",
+    "title": "Cable Power",
+    "description": "En corto",
+    "price": "10",
+    "code": "Cable2",
+    "stock": "5",
+    "category": "Cables"
   }
 ]

@@ -14,7 +14,7 @@ class ProductManager {
 // Método para obtener la lista de productos desde el archivo
 getProductsFromFile(products) {
   if (!fs.existsSync(this.filePath)) { // Verifica si el archivo de productos existe
-      return ["lala"]; // Si no existe, retorna una lista vacía
+      return []; // Si no existe, retorna una lista vacía
   }
   const data = fs.readFileSync(this.filePath, 'utf8'); // Lee el archivo de productos
   if (!data.trim()) { // Verifica si el archivo está vacío

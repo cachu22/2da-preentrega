@@ -30,7 +30,8 @@ let products = [];
                         <button class="eliminar-producto" data-product-id="${newProduct.id}">Eliminar</button>
                     </div>
                 `;
-                // Agregar la nueva tarjeta de producto al contenedor
+
+                //Agregar la nueva tarjeta de producto al contenedor
                 liveProducts.insertAdjacentHTML('beforeend', productHtml);
 
                 // Limpiar el formulario después de enviarlo
@@ -75,6 +76,7 @@ let products = [];
                     });
                 }
             });
+            
 
             // Escuchar el evento 'productoEliminado' del servidor
             socket.on('productoEliminado', (productId) => {
