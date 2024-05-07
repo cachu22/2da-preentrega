@@ -100,7 +100,8 @@ h4 {
 .extend-h2-h3, h2, h3 {
   font-size: 35px;
   color: white;
-  text-shadow: black 0.1rem 0.1rem 0.2rem; }
+  text-shadow: black 0.1rem 0.1rem 0.2rem; 
+  margin-top: 1rem;}
 
 /*Mixin*/
 /*Página Index*/

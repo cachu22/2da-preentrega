@@ -1,6 +1,8 @@
+// Inicializar el socket.io
 const socket = io();
 let user;
 
+// Mostrar un cuadro de diálogo para que el usuario ingrese su nombre
 Swal.fire({
     title: 'Bienvenidos',
     input: 'text',
@@ -16,22 +18,23 @@ Swal.fire({
     console.log(user);
 });
 
+// Obtener elementos del chat
 const chatInput = document.querySelector('#chatInput');
 const chatSendBtn = document.querySelector('#chatSendBtn');
 const chatMessages = document.querySelector('#chatMessages'); // Obtener el contenedor de mensajes del chat
 
+// Agregar oyentes
 chatInput.addEventListener('keyup', evt => {
     if (evt.key === 'Enter') {
         sendMessage();
     }
 });
 
-chatSendBtn.addEventListener('click', sendMessage);
-
+// Función para enviar mensajes al servidor y mostrarlos en el cliente
 function sendMessage() {
     const message = chatInput.value.trim();
     if (message.length > 0) {
-        // Enviar el mensaje al servidor
+        // Enviar el mensaje al servidor para guardarlo en la base de datos
         fetch('/save-message', {
             method: 'POST',
             headers: {
@@ -42,6 +45,8 @@ function sendMessage() {
         .then(response => {
             if (response.ok) {
                 console.log('Mensaje enviado al servidor');
+                // Agregar el mensaje al contenedor de mensajes del chat
+                // appendMessageToUI(`${user}: ${message}`); //Duplica mensaje emisor, por eso se comenta
             } else {
                 console.error('Error al enviar el mensaje al servidor');
             }
@@ -50,16 +55,24 @@ function sendMessage() {
             console.error('Error al enviar el mensaje:', error);
         });
 
-        chatInput.value = '';
+        // Enviar el mensaje al servidor para transmitirlo en tiempo real a todos los clientes
+        socket.emit('message', { user, message });
+
+        chatInput.value = ''; // Limpiar el campo de entrada después de enviar el mensaje
     }
 }
 
-// Manejar los mensajes recibidos del servidor
-socket.on('message', ({ user, message }) => {
-    // Crear un elemento para el mensaje
+// Función para agregar mensajes al contenedor de mensajes del chat, mostrando los más recientes en la parte superior
+function appendMessageToUI(message) {
     const messageElement = document.createElement('div');
-    messageElement.textContent = `${user}: ${message}`;
-    
-    // Insertar el mensaje al principio del contenedor de mensajes
-    chatMessages.insertAdjacentElement('afterbegin', messageElement);
+    messageElement.textContent = message;
+    chatMessages.insertAdjacentElement('afterbegin', messageElement); // Inserta el mensaje al principio del contenedor de mensajes
+}
+
+// Manejar los mensajes recibidos del servidor y mostrarlos en el cliente
+socket.on('message', ({ user, message }) => {
+    appendMessageToUI(`${user}: ${message}`);
 });
+
+// Enviar mensaje cuando se hace clic en el botón de enviar
+chatSendBtn.addEventListener('click', sendMessage);

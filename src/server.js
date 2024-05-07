@@ -11,10 +11,9 @@ import { __dirname } from "./utils/utils.js";
 import { productsSocket } from './utils/productsSocket.js';
 import ProductManager from './dao/product.ManagerFS.js';
 import viewsRouter from './Routes/views.router.js'
-//importacion de mongoose
 import mongoose from 'mongoose';
 import { multerSingleUploader }  from './utils/multer.js';
-import messageRouter from './Routes/api/messageRouter.js';
+import routerMSG from './Routes/api/messageRouter.js';
 
 // Cargar los datos de los carritos localfile
 const cartData = JSON.parse(fs.readFileSync(__dirname + '/file/carts.json', 'utf-8'));
@@ -58,24 +57,20 @@ app.set('view engine', 'hbs');
 // Middleware de Socket.IO
 app.use(productsSocket(io));
 
+//url base
+app.use('/', viewsRouter)
 
+//url productos en tiempo real
+app.use('/realtimeproducts', viewsRouter)
 
+//carrito
+app.use('/cart', viewsRouter)
 
-//Url base / html
-                    //url base
-                    app.use('/', viewsRouter)
-
-                    //url productos en tiempo real
-                    app.use('/realtimeproducts', viewsRouter)
-
-                    //carrito
-                    app.use('/cart', viewsRouter)
-
-                    // Usa el router para la subida de archivos
-                    app.post('/upload-file', multerSingleUploader, (req, res) => {
-                        // Log de imagen subida
-                        res.send('¡Imagen subida con éxito!');
-                    });        
+// Usa el router para la subida de archivos
+app.post('/upload-file', multerSingleUploader, (req, res) => {
+    // Log de imagen subida
+    res.send('¡Imagen subida con éxito!');
+});        
 
 // Rutas API
 app.use('/api/products', productsRouterLF);
@@ -84,23 +79,18 @@ app.use('/api/carts', cartsRouter);
 // Enrutador para las operaciones relacionadas con MongoDB
 app.use('/mgProducts', productsRouterDB);
 // Usa el enrutador de mensajes
-app.use('/api', messageRouter);
-
-                app.post('/save-message', (req, res) => {
-                    const { user, message } = req.body;
-                    res.status(200).send('Mensaje guardado exitosamente');
-                });
+app.use('/', routerMSG);
 
 const manager = new ProductManager(`${__dirname}/file/products.json`);
 
-// Maneja eventos de conexión aquí
+// Manejar eventos de conexión aquí
 io.on('connection', (socket) => {
     console.log('Nuevo cliente conectado');
 
     // Manejar eventos de mensaje
     socket.on('message', (data) => {
         console.log('Mensaje recibido:', data);
-        // Aquí puedes emitir el mensaje a todos los clientes, almacenarlo en una base de datos, etc.
+        // Emitir el mensaje a todos los clientes, incluido el remitente
         io.emit('message', data);
     });
 
@@ -108,5 +98,4 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('Cliente desconectado');
     });
-    
 });

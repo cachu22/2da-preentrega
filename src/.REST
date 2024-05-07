@@ -1,0 +1,3 @@
+###enviar consulta
+GET http://127.0.0.1:8080/mgProducts/6637092fa7131aad18df7dd7
+
