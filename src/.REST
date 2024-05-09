@@ -1,3 +1,36 @@
-###enviar consulta
+### enviar consulta
 GET http://127.0.0.1:8080/mgProducts/6637092fa7131aad18df7dd7
 
+### traer carts FS
+GET http://localhost:8080/api/carts/
+
+### traer Carts DB
+GET http://localhost:8080/api/cartsDB/
+
+### traer Carts DB por id
+GET http://localhost:8080/api/cartsDB/663c1eb3ca4000941bc5948a/
+
+
+### Crear una cart en DB
+POST http://localhost:8080/api/cartsDB/
+Content-Type: application/json
+
+{}
+
+### Cargar un producto en DB
+POST http://localhost:8080/api/products/
+Content-Type: application/json
+
+{
+   		 "title": "testdeREST",
+   		 "description": "testdeREST",
+   		 "price": 4,
+   		 "thumbnails": "https://picsum.photos/700/410?random",
+   		 "code": "102",
+   		 "stock": 6,
+   		 "category": "testdeREST"
+}
+
+### Agregar productos al carrito DB
+POST http://localhost:8080/api/cartsDB/663c1eb3ca4000941bc5948a/product/6637092fa7131aad18df7dd7
+Content-Type: application/json

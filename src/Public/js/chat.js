@@ -6,10 +6,10 @@ let user;
 Swal.fire({
     title: 'Bienvenidos',
     input: 'text',
-    text: 'Indique su nombre',
+    text: 'Indique su email',
     icon: 'success',
     inputValidator: value => {
-        return !value && 'Necesitas escribir tu nombre para continuar';
+        return !value && 'Necesitas escribir tu mail para continuar';
     },
     allowOutsideClick: false
 })

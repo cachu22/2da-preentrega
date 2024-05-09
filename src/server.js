@@ -3,7 +3,8 @@ import express from 'express';
 import Handlebars from 'express-handlebars';
 import productsRouterLF from './Routes/api/productsRouterFS.js';
 import productsRouterDB from './Routes/api/productsRouterDB.js';
-import { router as cartsRouter } from './Routes/api/carts.routerDB.js';
+import { cartsRouterMSG } from './Routes/api/carts.routerDB.js';
+import { cartsRouterFS } from './Routes/api/carts.routerFS.js'
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import fs from 'fs';
@@ -74,12 +75,15 @@ app.post('/upload-file', multerSingleUploader, (req, res) => {
 
 // Rutas API
 app.use('/api/products', productsRouterLF);
-app.use('/api/carts', cartsRouter);
+app.use('/api/carts', cartsRouterFS);
 
 // Enrutador para las operaciones relacionadas con MongoDB
 app.use('/mgProducts', productsRouterDB);
 // Usa el enrutador de mensajes
-app.use('/', routerMSG);
+// app.use('/', routerDBC);
+
+//Ruta de carrito en DB
+app.use('/api/cartsDB', cartsRouterMSG);
 
 const manager = new ProductManager(`${__dirname}/file/products.json`);
 
