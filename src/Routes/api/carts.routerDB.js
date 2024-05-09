@@ -9,17 +9,6 @@ cartsRouterMSG.get('/', async (req, res) => {
     res.send (carts) 
 } )
 
-
-        // //Obtener un carrito por su ID
-        // cartsRouterMSG.get('/:cid', (req, res) => {
-        //     const { cid } = req.params; // Obtener el ID del carrito desde los parámetros de la ruta
-
-        //     // Obtener el carrito por su ID usando el método getCartById de CartManager
-        //     const cart = cartService.getCartById(parseInt(cid));
-        // });
-
-
-
 // Ruta para traer un producto por su id
 cartsRouterMSG.get('/:cid', async (req, res) => {
     const { cid } = req.params;
