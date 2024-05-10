@@ -9,12 +9,12 @@ cartsRouterMSG.get('/', async (req, res) => {
     res.send (carts) 
 } )
 
-// Ruta para traer un producto por su id
+// Ruta para traer un carrito por su id
 cartsRouterMSG.get('/:cid', async (req, res) => {
     const { cid } = req.params;
     try {
         console.log('ID del carrito:', cid); // Log para verificar el ID del carrito
-        const result = await manager.getCartById(cid);
+        const result = await cartService.getCartById(cid);
         if (!result) {
             res.status(404).send({ status: 'error', message: 'No se encontró el ID especificado' });
         } else {
