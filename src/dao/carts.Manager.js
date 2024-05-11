@@ -133,7 +133,7 @@ addProductToCart = async (cid, pid) => {
         // Guardar los cambios en el archivo después de modificar el carrito
         this.saveCartsToFile(carts);
 
-        return { message: 'Producto agregado al carrito correctamente', carts };
+        return { message: 'Producto agregado al carrito correctamente', cart: carts[cartIndex] };
     } catch (error) {
         console.log(error);
         throw error;

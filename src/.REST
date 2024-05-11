@@ -1,23 +1,75 @@
-### enviar consulta
+			//Tratar consultas y solicitudes sobre la DB
+			//PRODUCTOS
+### Consulta para traer todos los productos de mi DB
+GET http://127.0.0.1:8080/mgProducts/
+
+### Consulta para traer los productos con limitación de cantidad
+GET http://127.0.0.1:8080/mgProducts/?limit=3
+
+### Consulta GET para traer un producto por id en DB
 GET http://127.0.0.1:8080/mgProducts/6637092fa7131aad18df7dd7
 
-### traer carts FS
-GET http://localhost:8080/api/carts/
+### Solicitud post para agregar un producto a "productos" en DB
+POST http://127.0.0.1:8080/mgProducts/
+Content-Type: application/json
 
-### traer Carts DB
-GET http://localhost:8080/api/cartsDB/
+{
+    "title": "Burro de arranque",
+    "description": "Fiat siena",
+    "price": 15000,
+    "thumbnails": "https://picsum.photos/700/410?random",
+    "code": "47",
+    "stock": 3,
+    "category": "Motor"
+}
 
-### traer Carts DB por id
-GET http://localhost:8080/api/cartsDB/663c369bdf8ebef4fcbaa502
+### Solicitud para modificar un producto en DB
+PUT http://127.0.0.1:8080/mgProducts/663f9a859d15d55199f767dc
+Content-Type: application/json
+
+{
+	"title": "Burro de arranque eletrico",
+	"price": 2002
+}
+
+### Solicitud para eliminar un producto de mi DB
+DELETE http://127.0.0.1:8080/mgProducts/663f9a859d15d55199f767dc
 
 
-### Crear una cart en DB
-POST http://localhost:8080/api/cartsDB/
+			//CARRITOS
+### Solicitud para crear una cart en DB
+POST http://127.0.0.1:8080/api/cartsDB
 Content-Type: application/json
 
 {}
 
-### Cargar un producto en DB
+### Solicitud para traer todos los carritos de la DB
+GET http://127.0.0.1:8080/api/cartsDB/
+
+### traer Carts por id en mi base de datos
+GET http://localhost:8080/api/cartsDB/663fa6181795e359febe9cd4
+
+### Solicitud para agregar productos al carrito DB
+POST http://localhost:8080/api/cartsDB/663fa6181795e359febe9cd4/product/66370e083326d46d71cee301
+Content-Type: application/json
+
+{
+  "quantity": 1
+}
+
+
+			//Tratar consultas y solicitudes sobre FS
+			//PRODUCTOS
+### Traer todos los productos FS
+get http://localhost:8080/api/products
+
+### Traer productos con limite de cantidad
+GET http://localhost:8080/api/products/?limit=3
+
+### consulta GET para traer un producto por id en FS
+GET http://127.0.0.1:8080/api/products/2
+
+### Cargar un producto en FS
 POST http://localhost:8080/api/products/
 Content-Type: application/json
 
@@ -26,15 +78,35 @@ Content-Type: application/json
    		 "description": "testdeREST",
    		 "price": 4,
    		 "thumbnails": "https://picsum.photos/700/410?random",
-   		 "code": "103",
+   		 "code": "108",
    		 "stock": 6,
    		 "category": "testdeREST"
 }
 
-### Agregar productos al carrito DB
-POST http://localhost:8080/api/cartsDB/663c369bdf8ebef4fcbaa502/product/6636f5c849e0c390275db270
+### Solicitud para modificar un producto en FS
+PUT http://localhost:8080/api/products/2
 Content-Type: application/json
 
 {
-  "quantity": 1
+	"stock": 12
 }
+
+### Solicitud para eliminar un producto en FS
+DELETE http://localhost:8080/api/products/9
+
+			//CARRITOS
+
+### Solicitud para crear una cart en FS
+POST http://localhost:8080/api/carts
+Content-Type: application/json
+
+{}
+
+### Solicitud para traer todos los carritos de FS
+GET http://localhost:8080/api/carts/
+
+### Solicitud para traer un carrito por id de FS
+GET http://localhost:8080/api/carts/5
+
+### Solicitud para agregar un producto al carrito FS
+POST http://localhost:8080/api/carts/5/product/2

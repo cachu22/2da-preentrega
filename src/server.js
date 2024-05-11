@@ -14,7 +14,6 @@ import ProductManager from './dao/product.ManagerFS.js';
 import viewsRouter from './Routes/views.router.js'
 import mongoose from 'mongoose';
 import { multerSingleUploader }  from './utils/multer.js';
-import routerMSG from './Routes/api/messageRouter.js';
 
 // Cargar los datos de los carritos localfile
 const cartData = JSON.parse(fs.readFileSync(__dirname + '/file/carts.json', 'utf-8'));

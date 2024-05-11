@@ -9,47 +9,51 @@ cartsRouterMSG.get('/', async (req, res) => {
     res.send (carts) 
 } )
 
-// Ruta para traer un carrito por su id
+// Ruta para traer un producto por su id
 cartsRouterMSG.get('/:cid', async (req, res) => {
     const { cid } = req.params;
     try {
         console.log('ID del carrito:', cid); // Log para verificar el ID del carrito
-        const result = await cartService.getCartById(cid);
+        const result = await cartService.getCartById(cid); // Corregido: cambia manager por cartService
         if (!result) {
             res.status(404).send({ status: 'error', message: 'No se encontró el ID especificado' });
         } else {
             res.send({ status: 'success', payload: result });
         }
     } catch (error) {
-        res.status(500).send({ status: 'error', message: 'Error al buscar el producto por ID' });
+        res.status(500).send({ status: 'error', message: 'Error al buscar el carrito por ID' }); // Corregido: cambia producto por carrito
     }
 });
 
 // Ruta POST para crear un nuevo carrito
-cartsRouterMSG.post('/', (req, res) => {
+cartsRouterMSG.post('/', async (req, res) => {
     try {
-        const newCart = cartService.createCart(); // Llama al método createCart de cartManager
+        const newCart = await cartService.createCart(); // Espera a que se cree el carrito
         res.json(newCart); // Enviar el nuevo carrito como respuesta
     } catch (error) {
         res.status(500).json({ error: 'Error al crear el carrito' }); // Manejo de errores
     }
 });
 
-// Agregar un producto al carrito
+// Ruta POST para agregar un producto al carrito
 cartsRouterMSG.post('/:cid/product/:pid', async (req, res) => {
     try {
         const { cid, pid } = req.params;
+        const { quantity } = req.body;
 
-        // Obtener el carrito por su ID y agregar el producto
+        // Verificar si la cantidad es válida
+        if (!quantity || isNaN(quantity) || quantity <= 0) {
+            return res.status(400).json({ error: 'La cantidad del producto no es válida' });
+        }
+
+        // Obtener el carrito por su ID
         const cart = await cartService.getCartById(cid);
         if (!cart) {
             return res.status(404).json({ error: 'El carrito no existe' });
         }
 
         // Llamar al método addProductToCart del cartManager
-        const result = await cartService.addProduct(cid, pid);
-        console.log(result);
-
+        const result = await cartService.addProductToCart(cid, pid, quantity);
         res.json(result);
     } catch (error) {
         console.error('Error al agregar el producto al carrito:', error);

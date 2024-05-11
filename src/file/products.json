@@ -18,7 +18,7 @@
     "price": "10",
     "thumbnails": "https://picsum.photos/700/410?random",
     "code": "Cable1",
-    "stock": "5",
+    "stock": 12,
     "category": "Cables"
   },
   {
@@ -51,6 +51,39 @@
     "description": "testdeREST",
     "price": 4,
     "code": "103",
+    "stock": 6,
+    "category": "testdeREST"
+  },
+  {
+    "id": 6,
+    "status": true,
+    "thumbnails": "https://picsum.photos/700/410?random",
+    "title": "testdeREST",
+    "description": "testdeREST",
+    "price": 4,
+    "code": "104",
+    "stock": 6,
+    "category": "testdeREST"
+  },
+  {
+    "id": 7,
+    "status": true,
+    "thumbnails": "https://picsum.photos/700/410?random",
+    "title": "testdeREST",
+    "description": "testdeREST",
+    "price": 4,
+    "code": "105",
+    "stock": 6,
+    "category": "testdeREST"
+  },
+  {
+    "id": 8,
+    "status": true,
+    "thumbnails": "https://picsum.photos/700/410?random",
+    "title": "testdeREST",
+    "description": "testdeREST",
+    "price": 4,
+    "code": "106",
     "stock": 6,
     "category": "testdeREST"
   }

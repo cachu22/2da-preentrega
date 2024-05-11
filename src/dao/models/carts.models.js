@@ -1,16 +1,18 @@
 import { Schema, model } from "mongoose";
 
-const CartSchema = new Schema({
-        products: {
-          type: [{
-            product: {
-              type: Schema.Types.ObjectId,
-              ref: 'products'
-            },
-            //quantity: Number
-          }]
-        }
-      })
+const CartProductSchema = new Schema({
+    product: {
+        type: Schema.Types.ObjectId,
+        ref: 'products'
+    },
+    quantity: {
+        type: Number,
+        default: 1 // Puedes establecer el valor predeterminado que desees
+    }
+});
 
-//odm
+const CartSchema = new Schema({
+    products: [CartProductSchema]
+});
+
 export const cartsModel = model('carts', CartSchema);

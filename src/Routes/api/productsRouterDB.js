@@ -8,7 +8,12 @@ const manager = new productsManagerDB();
 // Ruta para traer todos los productos
 router.get('/', async (req, res) => {
     try {
-        const result = await manager.getProducts();
+        // Obtener el parámetro de consulta "limit" de la solicitud, si está presente
+        const limit = parseInt(req.query.limit) || 0;
+
+        // Obtener productos con la limitación
+        const result = await manager.getProducts(limit);
+
         res.send({ status: 'success', payload: result });
     } catch (error) {
         res.status(500).send({ status: 'error', message: 'Error al obtener todos los productos' });
@@ -35,7 +40,8 @@ router.post('/', async (req, res) => {
     try {
         const productData = req.body;
         const newProduct = await manager.addProduct(productData);
-        res.status(201).json({ status: 'success', payload: newProduct });
+        console.log('producto enviado Router', productData);
+        res.status(201).json({ status: 'true', payload: newProduct });
     } catch (error) {
         res.status(500).json({ status: 'error', message: 'Error al agregar un nuevo producto', error: error.message });
     }
