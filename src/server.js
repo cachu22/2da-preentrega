@@ -14,6 +14,7 @@ import ProductManager from './dao/product.ManagerFS.js';
 import viewsRouter from './Routes/views.router.js'
 import mongoose from 'mongoose';
 import { multerSingleUploader }  from './utils/multer.js';
+import routerMSG from './Routes/api/messageRouter.js';
 
 // Cargar los datos de los carritos localfile
 const cartData = JSON.parse(fs.readFileSync(__dirname + '/file/carts.json', 'utf-8'));
@@ -75,11 +76,10 @@ app.post('/upload-file', multerSingleUploader, (req, res) => {
 // Rutas API
 app.use('/api/products', productsRouterLF);
 app.use('/api/carts', cartsRouterFS);
+app.use('/', routerMSG);
 
 // Enrutador para las operaciones relacionadas con MongoDB
 app.use('/mgProducts', productsRouterDB);
-// Usa el enrutador de mensajes
-// app.use('/', routerDBC);
 
 //Ruta de carrito en DB
 app.use('/api/cartsDB', cartsRouterMSG);
