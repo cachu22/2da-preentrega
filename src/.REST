@@ -18,7 +18,7 @@ Content-Type: application/json
     "description": "Fiat siena",
     "price": 15000,
     "thumbnails": "https://picsum.photos/700/410?random",
-    "code": "47",
+    "code": "49",
     "stock": 3,
     "category": "Motor"
 }
@@ -29,7 +29,7 @@ Content-Type: application/json
 
 {
 	"title": "Burro de arranque eletrico",
-	"price": 2002
+	"price": 2003
 }
 
 ### Solicitud para eliminar un producto de mi DB
@@ -78,7 +78,7 @@ Content-Type: application/json
    		 "description": "testdeREST",
    		 "price": 4,
    		 "thumbnails": "https://picsum.photos/700/410?random",
-   		 "code": "108",
+   		 "code": "10810",
    		 "stock": 6,
    		 "category": "testdeREST"
 }
@@ -92,7 +92,7 @@ Content-Type: application/json
 }
 
 ### Solicitud para eliminar un producto en FS
-DELETE http://localhost:8080/api/products/9
+DELETE http://localhost:8080/api/products/2
 
 			//CARRITOS
 

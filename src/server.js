@@ -15,6 +15,8 @@ import viewsRouter from './Routes/views.router.js'
 import mongoose from 'mongoose';
 import { multerSingleUploader }  from './utils/multer.js';
 import routerMSG from './Routes/api/messageRouter.js';
+import { handleAddProduct } from './utils/crearProducto.js';
+import { deleteProduct } from './utils/eliminarProducto.js';
 
 // Cargar los datos de los carritos localfile
 const cartData = JSON.parse(fs.readFileSync(__dirname + '/file/carts.json', 'utf-8'));
@@ -67,6 +69,11 @@ app.use('/realtimeproducts', viewsRouter)
 //carrito
 app.use('/cart', viewsRouter)
 
+// usa el router para RealTime
+app.use('/realtimeproducts', (req, res) => {
+    res.render('realTimeProducts', { products: productsData });
+});
+
 // Usa el router para la subida de archivos
 app.post('/upload-file', multerSingleUploader, (req, res) => {
     // Log de imagen subida
@@ -100,5 +107,14 @@ io.on('connection', (socket) => {
     // Manejar evento de desconexión
     socket.on('disconnect', () => {
         console.log('Cliente desconectado');
+    });
+
+    socket.on('addProduct', (productData) => {
+        handleAddProduct(productData, manager, io);
+        console.log('datos recibidos desde el cliente', productData);
+    });
+
+    socket.on('eliminarProducto', (productId) => {
+        deleteProduct(productId, manager, io);
     });
 });
