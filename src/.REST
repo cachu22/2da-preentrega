@@ -57,6 +57,9 @@ Content-Type: application/json
   "quantity": 1
 }
 
+### Solicitud para traer usuarios DB
+GET http://localhost:8080/api/usersDB/
+
 
 			//Tratar consultas y solicitudes sobre FS
 			//PRODUCTOS

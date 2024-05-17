@@ -17,6 +17,8 @@ import { multerSingleUploader }  from './utils/multer.js';
 import routerMSG from './Routes/api/messageRouter.js';
 import { handleAddProduct } from './utils/crearProducto.js';
 import { deleteProduct } from './utils/eliminarProducto.js';
+import usersRouter from './Routes/api/users.router.js';
+// import { connectDb } from './config/index.js';
 
 // Cargar los datos de los carritos localfile
 const cartData = JSON.parse(fs.readFileSync(__dirname + '/file/carts.json', 'utf-8'));
@@ -43,8 +45,9 @@ app.use(express.static(__dirname + '/Public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// connectDb()
 
-//Conectar con mongo
+// //Conectar con mongo
 mongoose.connect('mongodb+srv://ladrianfer87:u7p7QfTyYPoBhL9j@cluster0.8itfk8g.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0')
 console.log('base de datos conectada');
 
@@ -80,16 +83,26 @@ app.post('/upload-file', multerSingleUploader, (req, res) => {
     res.send('¡Imagen subida con éxito!');
 });        
 
-// Rutas API
+// Rutas API Local
+//Ruta para productos
 app.use('/api/products', productsRouterLF);
+// Ruta para carts
 app.use('/api/carts', cartsRouterFS);
-app.use('/', routerMSG);
+// Ruta para usuarios
 
+
+        //Rutas para DB
 // Enrutador para las operaciones relacionadas con MongoDB
 app.use('/mgProducts', productsRouterDB);
 
 //Ruta de carrito en DB
 app.use('/api/cartsDB', cartsRouterMSG);
+
+//Ruta para usuarios
+app.use('api/usersDB', usersRouter);
+
+//Ruta para mensajeria
+app.use('/', routerMSG);
 
 const manager = new ProductManager(`${__dirname}/file/products.json`);
 
