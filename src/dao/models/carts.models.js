@@ -1,18 +1,20 @@
 import { Schema, model } from "mongoose";
 
-const CartProductSchema = new Schema({
-    product: {
-        type: Schema.Types.ObjectId,
-        ref: 'products'
-    },
-    quantity: {
-        type: Number,
-        default: 1 // Puedes establecer el valor predeterminado que desees
-    }
-});
-
 const CartSchema = new Schema({
-    products: [CartProductSchema]
+    products: [{
+        product: {
+            type: Schema.Types.ObjectId,
+            ref: 'productos'
+        },
+        quantity: {
+            type: Number
+        }
+    }]
 });
 
-export const cartsModel = model('carts', CartSchema);
+// Middleware para hacer populate automáticamente en find y findOne
+CartSchema.pre(['find', 'findOne'], function() {
+    this.populate('products.product');
+});
+
+export const cartsModel = model('Cart', CartSchema);

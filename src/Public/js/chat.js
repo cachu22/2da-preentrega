@@ -2,21 +2,27 @@
 const socket = io();
 let user;
 
-// Mostrar un cuadro de diálogo para que el usuario ingrese su nombre
-Swal.fire({
-    title: 'Bienvenidos',
-    input: 'text',
-    text: 'Indique su email',
-    icon: 'success',
-    inputValidator: value => {
-        return !value && 'Necesitas escribir tu mail para continuar';
-    },
-    allowOutsideClick: false
-})
-.then(result => {
-    user = result.value;
-    console.log(user);
-});
+// Verificar si el usuario ya está almacenado en localStorage
+if (localStorage.getItem('user')) {
+    user = localStorage.getItem('user');
+    console.log(`Usuario recuperado: ${user}`);
+} else {
+    // Mostrar un cuadro de diálogo para que el usuario ingrese su nombre
+    Swal.fire({
+        title: 'Bienvenidos',
+        input: 'text',
+        text: 'Indique su email',
+        icon: 'success',
+        inputValidator: value => {
+            return !value && 'Necesitas escribir tu mail para continuar';
+        },
+        allowOutsideClick: false
+    }).then(result => {
+        user = result.value;
+        console.log(user);
+        localStorage.setItem('user', user); // Guardar el usuario en localStorage
+    });
+}
 
 // Obtener elementos del chat
 const chatInput = document.querySelector('#chatInput');
@@ -46,7 +52,7 @@ function sendMessage() {
             if (response.ok) {
                 console.log('Mensaje enviado al servidor');
                 // Agregar el mensaje al contenedor de mensajes del chat
-                // appendMessageToUI(`${user}: ${message}`); //Duplica mensaje emisor, por eso se comenta
+                // appendMessageToUI(`${user}: ${message}`); // Duplica mensaje emisor, por eso se comenta
             } else {
                 console.error('Error al enviar el mensaje al servidor');
             }

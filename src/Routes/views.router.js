@@ -4,6 +4,7 @@ import fs from 'fs';
 import { __dirname } from "../utils/utils.js";
 import { multerSingleUploader } from "../utils/multer.js";
 import productsManagerDB from "../dao/product.ManagerDB.js";
+import CartManagerDB from "../dao/carts.ManagerDB.js";
 
 const productsManagerMongo = new productsManagerDB()
 
@@ -14,18 +15,28 @@ const productsData = JSON.parse(fs.readFileSync(__dirname + '/file/products.json
 let products = productsData;
 
 const router = new Router()
+const manager = new CartManagerDB()
 
 // Definir la ruta para renderizar la página principal DB
 router.get('/', async (req, res) => {
+    const {numPage, limit} = req.query
     try {
         // Consulta todos los productos desde la base de datos utilizando el manager de productos de Mongo
-        const products = await productsManagerMongo.getProducts();
+        // const products = await productsManagerMongo.getProducts();
+        const { docs, page, hasPrevPage, hasNextPage, prevPage, nextPage} = await productsManagerMongo.getProducts({limit, numPage});
         
         // Convertir los productos a objetos planos
-        const productsmg = products.map(product => product.toObject());
+        // const productsmg = products.map(product => product.toObject());
         
         // Renderiza la página principal (home) y pasa los productos como datos para su renderización
-        res.render('home', { products: productsmg });
+        res.render('home', {
+            products: docs,
+            page,
+            hasPrevPage,
+            hasNextPage,
+            prevPage,
+            nextPage
+        })
         
     } catch (error) {
         // Si hay algún error, devuelve un mensaje de error en formato JSON
@@ -68,6 +79,28 @@ router.get('/cart', (req, res) => {
     };
 
     res.use('realTimeProducts', { cart: cartInfo });
+});
+
+// Ruta para mostrar la vista de un carrito específico
+router.get('/carts/:cid', async (req, res) => {
+    const { cid } = req.params;
+    try {
+        console.log('ID del carrito:', cid); // Log para verificar el ID del carrito
+        const result = await manager.getCartById(cid);
+        console.log('Datos del carrito:', result); // Log para verificar los datos del carrito
+
+        if (!result) {
+            res.status(404).send({ status: 'error', message: 'No se encontró el ID especificado' });
+        } else {
+            // Convertir el resultado a un objeto plano
+            const cart = result.toObject();
+            const products = cart.products || [];
+            res.render('cart', { cartId: cid, cart, products });
+        }
+    } catch (error) {
+        console.error('Error al buscar el carrito por ID:', error);
+        res.status(500).send({ status: 'error', message: 'Error al buscar el carrito por ID' });
+    }
 });
 
 // Ruta para subir la imagen utilizando multer

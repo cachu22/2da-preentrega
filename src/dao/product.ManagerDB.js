@@ -5,11 +5,38 @@ class productsManagerDB {
         this.productModel = productModel;
     }
 
-    //Traer todos los productos
-    async getProducts(limit = 0) {
-        // Aplicar la limitación al buscar los productos
-        return await this.productModel.find().limit(limit);
+    // Traer todos los productos con filtrado y ordenamiento
+async getProducts({ limit = 9, numPage = 1, category, status, sortByPrice, order, explain = false }) {
+    try {
+        let filter = {};
+        if (category) filter.category = category;
+        if (status !== undefined) filter.status = status === "true";
+
+        let sort = {};
+        if (sortByPrice && order) {
+            sort.price = order;
+        }
+
+        let query = await this.productModel.paginate(
+            filter,
+            { 
+                limit, 
+                page: numPage, 
+                sort,
+                lean: true 
+            }
+        );
+
+        if (explain) {
+            return await query.explain('executionStats');
+        }
+
+        return query;
+    } catch (error) {
+        console.error('Error al obtener productos:', error);
+        throw error;
     }
+}
 
     //Buscar producto por su ID
     async getProductById(_id) {

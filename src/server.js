@@ -12,13 +12,13 @@ import { __dirname } from "./utils/utils.js";
 import { productsSocket } from './utils/productsSocket.js';
 import ProductManager from './dao/product.ManagerFS.js';
 import viewsRouter from './Routes/views.router.js'
-import mongoose from 'mongoose';
 import { multerSingleUploader }  from './utils/multer.js';
 import routerMSG from './Routes/api/messageRouter.js';
 import { handleAddProduct } from './utils/crearProducto.js';
 import { deleteProduct } from './utils/eliminarProducto.js';
 import usersRouter from './Routes/api/users.router.js';
-// import { connectDb } from './config/index.js';
+import { connectDb } from './config/index.js';
+import cors from 'cors';
 
 // Cargar los datos de los carritos localfile
 const cartData = JSON.parse(fs.readFileSync(__dirname + '/file/carts.json', 'utf-8'));
@@ -45,16 +45,18 @@ app.use(express.static(__dirname + '/Public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// connectDb()
+// Habilitar CORS para todas las solicitudes
+app.use(cors());
 
-// //Conectar con mongo
-mongoose.connect('mongodb+srv://ladrianfer87:u7p7QfTyYPoBhL9j@cluster0.8itfk8g.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0')
-console.log('base de datos conectada');
+connectDb()
 
 // Express usará este motor de plantillas
 app.engine('hbs', Handlebars.engine({
-    extname: '.hbs'
-}));
+    extname: '.hbs',
+    helpers: {
+      eq: (a, b) => a === b
+    }
+  }));
 
 // Establecer las direcciones de las vistas
 app.set('views', __dirname + '/views');
