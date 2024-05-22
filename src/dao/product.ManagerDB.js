@@ -6,37 +6,40 @@ class productsManagerDB {
     }
 
     // Traer todos los productos con filtrado y ordenamiento
-async getProducts({ limit = 9, numPage = 1, category, status, sortByPrice, order, explain = false }) {
-    try {
-        let filter = {};
-        if (category) filter.category = category;
-        if (status !== undefined) filter.status = status === "true";
-
-        let sort = {};
-        if (sortByPrice && order) {
-            sort.price = order;
-        }
-
-        let query = await this.productModel.paginate(
-            filter,
-            { 
-                limit, 
-                page: numPage, 
-                sort,
-                lean: true 
+    async getProducts({ limit = 9, numPage = 1, category, status, sortByPrice, order, explain = false, availability }) {
+        try {
+            let filter = {};
+            if (category) filter.category = category;
+            
+            if (availability !== undefined) {
+                filter.availability = availability;
             }
-        );
-
-        if (explain) {
-            return await query.explain('executionStats');
+    
+            let sort = {};
+            if (sortByPrice && order) {
+                sort.price = order;
+            }
+    
+            let query = await this.productModel.paginate(
+                filter,
+                { 
+                    limit, 
+                    page: numPage, 
+                    sort,
+                    lean: true 
+                }
+            );
+    
+            if (explain) {
+                return await query.explain('executionStats');
+            }
+    
+            return query;
+        } catch (error) {
+            console.error('Error al obtener productos:', error);
+            throw error;
         }
-
-        return query;
-    } catch (error) {
-        console.error('Error al obtener productos:', error);
-        throw error;
     }
-}
 
     //Buscar producto por su ID
     async getProductById(_id) {

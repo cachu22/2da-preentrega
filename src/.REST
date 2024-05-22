@@ -11,7 +11,7 @@ GET http://127.0.0.1:8080/mgProducts/products/category/Escape/
 # Utilizar: Iluminacion, Motor o Escape
 
 ### Obtener productos filtrados por disponibilidad
-GET http://127.0.0.1:8080/mgProducts/products/status/true/
+GET http://127.0.0.1:8080/mgProducts/products/status/false/
 #Utilizar true o false
 
 ### Obtener productos ordenados por precio ascendente
@@ -21,7 +21,7 @@ GET http://127.0.0.1:8080/mgProducts/products/sort/price/asc
 GET http://127.0.0.1:8080/mgProducts/products/sort/price/desc
 
 ### Consulta GET para traer un producto por id en DB
-GET http://127.0.0.1:8080/mgProducts/664b6d06e6befaceea103874
+GET http://127.0.0.1:8080/mgProducts/664b7382e6befaceea1038d2
 
 ### Solicitud post para agregar un producto a "productos" en DB
 POST http://127.0.0.1:8080/mgProducts/
