@@ -42,8 +42,18 @@
             <button id="chatSendBtn">Enviar</button>
             <div id="chatMessages"></div>
         </div>
-
-        <h3 class="p-servicios">Ofrecemos trabajos y productos de la más alta calidad</h3>
+        
+        {{#if first_name}}
+            <h3>Bienvenido {{first_name}} {{last_name}}!</h3>
+            <h4>Nos alegra verte de nuevo.</h4>
+            <a href="/api/sessions/logout">Cerrar sesión</a>
+            {{#if isAdmin}}
+                <a href="/EnConstrucción">Gestión de productos</a>
+            {{/if}}
+        {{else}}
+            <h4 class="p-servicios">Ofrecemos trabajos y productos de la más alta calidad</h4>
+            <a href="/login">Iniciar sesión</a>
+        {{/if}}
 
         <div class="padre-cards">
             {{#each products}}

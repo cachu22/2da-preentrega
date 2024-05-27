@@ -2,18 +2,23 @@ import { Schema, model } from "mongoose"
 
 const userCollection = 'users'
 
-const userSchema = new Schema({
+const userSchema = new Schema(
+    {
     first_name: {
         type: String,
         index: true
     },
-    last_name: Number,
+    last_name: String,
     email: {
         type: String,
         required: true, 
         unique: true
     },
-    gender: String
+    password: String,
+    role: {
+        type: String,
+        default: 'user'
+    }
 })
 // odm 
 export const userModel = model(userCollection, userSchema)

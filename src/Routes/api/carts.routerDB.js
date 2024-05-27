@@ -1,5 +1,6 @@
 import { Router } from "express";
 import CartManagerDB from "../../dao/carts.ManagerDB.js";
+import { adminOrUserAuth } from "../../middlewares/Auth.middleware.js"
 
 const cartsRouterMSG = Router()
 const cartService = new CartManagerDB
@@ -12,7 +13,7 @@ cartsRouterMSG.get('/', async (req, res) => {
 } )
 
 // Ruta para traer un carro por su id
-cartsRouterMSG.get('/:cid', async (req, res) => {
+cartsRouterMSG.get('/:cid', adminOrUserAuth, async (req, res) => {
     const { cid } = req.params;
     try {
         console.log('ID del carrito:', cid); // Log para verificar el ID del carrito
@@ -33,7 +34,7 @@ cartsRouterMSG.get('/:cid', async (req, res) => {
 });
 
 // Ruta POST para crear un nuevo carrito
-cartsRouterMSG.post('/', async (req, res) => {
+cartsRouterMSG.post('/', adminOrUserAuth, async (req, res) => {
     try {
         const newCart = await cartService.createCart(); // Espera a que se cree el carrito
         res.json(newCart); // Enviar el nuevo carrito como respuesta
@@ -42,7 +43,7 @@ cartsRouterMSG.post('/', async (req, res) => {
     }
 });
 
-// Ruta POST para agregar un producto al carrito
+// Ruta para agregar productos al carrito
 cartsRouterMSG.post('/:cid/product/:pid', async (req, res) => {
     try {
         const { cid, pid } = req.params;

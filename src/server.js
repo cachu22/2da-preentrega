@@ -19,6 +19,16 @@ import { deleteProduct } from './utils/eliminarProducto.js';
 import usersRouter from './Routes/api/users.router.js';
 import { connectDb } from './config/index.js';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import routerCookie from './Routes/Cookies/pruebas.router.js';
+import session from 'express-session';
+import sessionsRouter from './Routes/Sessions/sessions.router.js';
+
+//session file storage => persistencia en archivo de la sesión
+import FileStore from 'session-file-store'
+
+//Session db storage => persistencia en DB
+import MongoStore from 'connect-mongo';
 
 // Cargar los datos de los carritos localfile
 const cartData = JSON.parse(fs.readFileSync(__dirname + '/file/carts.json', 'utf-8'));
@@ -40,6 +50,47 @@ httpServer.listen(8080, () => {
 
 // Servir archivos estáticos
 app.use(express.static(__dirname + '/Public'));
+app.use(cookieParser('s3cr3t@Firma'))
+
+//sessions
+// app.use(session({
+//     secret: 's3cr3etc@d3r',
+//     resave: true,
+//     saveUninitialized: true
+// }))
+
+//file store session
+// const FileStorage = FileStore(session)
+
+// app.use(session({
+//     store: new FileStorage({
+//         path: './sessions',
+//         ttl: 100,
+//         retries: 0
+//     }),
+//     secret: 's3cr3etc@d3r',
+//     resave: true,
+//     saveUninitialized: true
+// }))
+
+//Sessions con mongo
+app.use(session({
+    store:  MongoStore.create({
+        mongoUrl:'mongodb+srv://ladrianfer87:u7p7QfTyYPoBhL9j@cluster0.8itfk8g.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0',
+        mongoOptions: {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        },
+        //que la sid dure un día
+        ttl: 60 * 60 * 1000 * 24
+    }),
+    secret: 's3cr3etc@d3r',
+    resave: true,
+    saveUninitialized: true
+}))
+
+//middlewares
+app.use('/cookies', routerCookie)
 
 // Middleware para analizar el cuerpo de la solicitud JSON
 app.use(express.json());
@@ -90,7 +141,8 @@ app.post('/upload-file', multerSingleUploader, (req, res) => {
 app.use('/api/products', productsRouterLF);
 // Ruta para carts
 app.use('/api/carts', cartsRouterFS);
-// Ruta para usuarios
+// Ruta para session
+app.use('/api/sessions', sessionsRouter)
 
 
         //Rutas para DB
@@ -133,3 +185,4 @@ io.on('connection', (socket) => {
         deleteProduct(productId, manager, io);
     });
 });
+
